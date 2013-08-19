@@ -1,0 +1,36 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".JobResultsListFragment" >
+
+ <TextView
+  android:layout_height="wrap_content"
+  android:text="Search Results"
+  android:gravity="center_vertical|center_horizontal"
+  android:layout_width="fill_parent"
+  android:layout_below="@id/imageView1" />
+
+ <Button
+     android:id="@+id/backButtontoJobSearch"
+     android:layout_width="wrap_content"
+     android:layout_height="40dp"
+     android:text="Back"
+     android:layout_below="@id/imageView1" />
+
+  <ListView 
+   android:id="@+id/ListView02" 
+   android:layout_height="wrap_content"
+   android:layout_width="fill_parent"
+   android:layout_below="@id/backButtontoJobSearch"/>
+  
+  <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/mba_logo" />
+  
+</RelativeLayout>

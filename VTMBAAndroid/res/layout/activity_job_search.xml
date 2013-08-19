@@ -1,0 +1,119 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".JobSearchFragment" >
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/mba_logo" />
+    
+    <Button
+        android:id="@+id/searchJobs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/imageView1"
+        android:layout_marginTop="0dp"
+        android:text="Search" />
+    <Button
+        android:id="@+id/backToMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/imageView1"
+        android:layout_marginTop="0dp"
+        android:text="Back" />
+
+    
+    <TextView
+        android:id="@+id/gradYearTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/backToMain"
+        android:layout_toLeftOf="@+id/partTimeBox"
+        android:layout_marginTop="20dp"
+        android:text="Filter Job Type:" />
+    
+    <CheckBox
+        android:id="@+id/fullTimeBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/gradYearTextView"
+        android:text="Full Time" />
+
+    <CheckBox
+        android:id="@+id/partTimeBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/fullTimeBox"
+        android:layout_alignBottom="@+id/fullTimeBox"
+        android:layout_toRightOf="@+id/fullTimeBox"
+        android:text="Part Time" />
+
+    <CheckBox
+        android:id="@+id/internBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/partTimeBox"
+        android:layout_alignBottom="@+id/partTimeBox"
+        android:layout_toRightOf="@+id/partTimeBox"
+        android:text="Intern" />
+    
+    <EditText
+        android:id="@+id/companySearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView3"
+        android:ems="10" />
+
+    <Button
+        android:id="@+id/select_colours"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView2"
+        android:text="Category" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/fullTimeBox"
+        android:layout_marginTop="20dp"
+        android:text="Filter Occupation:" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/select_colours"
+        android:layout_marginTop="20dp"
+        android:text="Company:" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/companySearch"
+        android:layout_marginTop="20dp"
+        android:text="State:" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView4" />
+
+</RelativeLayout>

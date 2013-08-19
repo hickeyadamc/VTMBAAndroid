@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">VTMBAAndroid</string>
+    <string name="app_name">VT MBA Alumni</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_fragment_main_menu">MainMenu</string>
+    <string name="title_fragment_contact_search_menu">ContactSearchMenu</string>
+    <string name="title_fragment_contact_results_list">ContactResultsList</string>
+    <string name="title_fragment_contact_page">ContactPage</string>
+    <string name="title_fragment_info">Info</string>
+    <string name="title_fragment_job_search">JobSearch</string>
+    <string name="title_fragment_job_results_list">JobResultsList</string>
+    <string name="title_fragmenty_job_page">JobPage</string>
 
 </resources>
