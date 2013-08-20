@@ -36,12 +36,14 @@
                 android:id="@+id/fullTimeBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingRight="15dp"
                 android:text="Full Time" />
 
             <CheckBox
                 android:id="@+id/partTimeBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingRight="15dp"
                 android:text="Part Time" />
 
             <CheckBox
@@ -102,7 +104,7 @@
             android:text="COMPANY" />
 
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/companySearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/interior_padding_left"

@@ -3,9 +3,12 @@ package edu.vt.mba.alumni.database;
 import android.os.AsyncTask;
 import android.util.Log;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -25,6 +28,7 @@ import edu.vt.mba.alumni.controllers.jobboard.Job;
 
 public class Database
 {
+	private static final String TAG = Database.class.getName();
 
     /**
      * Constructor
@@ -187,7 +191,7 @@ public class Database
             HttpResponse response = httpclient.execute(httppost);
             HttpEntity entity = response.getEntity();
             is = entity.getContent();
-
+            Log.d(TAG,"The response was: " + IOUtils.toString(is));
             }
             catch(Exception e){
 
@@ -313,6 +317,10 @@ public class Database
             nameValuePairs.add(new BasicNameValuePair("company", strings[3]));
 
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+//            Log.d(TAG,httppost.getEntity().getContent().toString())
+            
+            String stringEntity = IOUtils.toString(httppost.getEntity().getContent());
+            Log.d(TAG,stringEntity);
             HttpResponse response = httpclient.execute(httppost);
             HttpEntity entity = response.getEntity();
             is = entity.getContent();

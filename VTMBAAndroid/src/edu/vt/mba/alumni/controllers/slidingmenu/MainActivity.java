@@ -17,10 +17,14 @@ import edu.vt.mba.alumni.controllers.searchalumni.AlumniSearchFragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.View;
+import android.widget.TextView;
 
 public class MainActivity extends SlidingFragmentActivity {
 	private Fragment mMenuFragment;
@@ -29,13 +33,15 @@ public class MainActivity extends SlidingFragmentActivity {
 	private Map<String,SherlockFragment> mMenuControlledFragments;
 	
 	public static final String FRAGMENT_HOME = "home";
-	public static final String FRAGMENT_SEARCH_ALUMNI = "search alum";
-	public static final String FRAGMENT_JOB_SEARCH = "job board";
+	public static final String FRAGMENT_SEARCH_ALUMNI = "Search Alumni";
+	public static final String FRAGMENT_JOB_SEARCH = "Job Search";
 	public static final String FRAGMENT_INFORMATION = "information";
 	public static final String FRAGMENT_JOB_RESULTS = "job results";
 	public static final String FRAGMENT_SEARCH_ALUMNI_RESULTS = "search alumni results";
 	
 	public static final String TAG = MainActivity.class.getName();
+	
+	private TextView mBarTitle;
 	
 
 	@Override
@@ -49,6 +55,17 @@ public class MainActivity extends SlidingFragmentActivity {
 		mMenuFragment = new SlidingMenuFragment();
 		t.replace(R.id.menu_frame,mMenuFragment);
 		t.commit();
+		getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+		getSupportActionBar().setDisplayShowHomeEnabled(false);
+		getSupportActionBar().setDisplayShowCustomEnabled(true);
+		getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+		LayoutInflater inflator = (LayoutInflater) this
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View v = inflator.inflate(R.layout.actionbar_main, null);
+	    mBarTitle = (TextView) v.findViewById(R.id.barTitle);
+
+		getSupportActionBar().setCustomView(v);
 		
 		setupSlidingMenu();
 		initMenuControlledFragments();
@@ -91,6 +108,7 @@ public class MainActivity extends SlidingFragmentActivity {
 				getSupportFragmentManager().beginTransaction()
 						.replace(R.id.content_frame, newFragment).commit();
 				mCurrentFragment = newFragment;
+				mBarTitle.setText(fragmentName);
 				if(arguments != null) {
 					mCurrentFragment.setArguments(arguments);
 				}
@@ -105,6 +123,13 @@ public class MainActivity extends SlidingFragmentActivity {
 		} else {
 			Log.d(TAG,"The fragment: " + fragmentName + " wasn't found. Did you add it to the fragment list in MainActivity?");
 		}
+	}
+	public void leftBarButtonClicked(View v) {
+		toggle();
+	}
+
+	public void rightBarButtonClicked(View v) {
+		
 	}
 	
 	
