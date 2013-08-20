@@ -18,5 +18,18 @@
 	    <color name="view_background">#F5F5F5</color>
 	    <color name="menu_background_select_color">#3262A2</color>
 	    <color name="par_gray">#F0F0F0</color>    
+	    
+	    
 	    <color name="button_pressed_color">#78000000</color>
+	    <color name="button_center_color">#C00C3E</color>
+	    <color name="button_press_end_color">#530000</color>
+	    <color name="button_unpressed_color">#800000</color>
+	    
+	    
+	    <color name="category_button_color">#C0C0C0</color>
+	    <color name="category_button_border">#535353</color>
+	    <color name="category_button_pressed_center_color">#C0C0C0</color>
+	    <color name="category_button_pressed_end_color">#09679F</color>
+	    <color name="category_button_start_color">#C0C0C0</color>
+	    <color name="category_button_end_color">#E2E2E2</color>
     </resources>

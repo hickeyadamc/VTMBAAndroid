@@ -12,6 +12,8 @@ import edu.vt.mba.alumni.R.layout;
 import edu.vt.mba.alumni.R.menu;
 import edu.vt.mba.alumni.controllers.jobboard.JobResultsListFragment;
 import edu.vt.mba.alumni.controllers.jobboard.JobSearchFragment;
+import edu.vt.mba.alumni.controllers.searchalumni.AlumniResultsListFragment;
+import edu.vt.mba.alumni.controllers.searchalumni.AlumniSearchFragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
@@ -31,8 +33,10 @@ public class MainActivity extends SlidingFragmentActivity {
 	public static final String FRAGMENT_JOB_SEARCH = "job board";
 	public static final String FRAGMENT_INFORMATION = "information";
 	public static final String FRAGMENT_JOB_RESULTS = "job results";
+	public static final String FRAGMENT_SEARCH_ALUMNI_RESULTS = "search alumni results";
 	
 	public static final String TAG = MainActivity.class.getName();
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -57,9 +61,9 @@ public class MainActivity extends SlidingFragmentActivity {
 //
 		mMenuControlledFragments.put(FRAGMENT_JOB_RESULTS, new JobResultsListFragment());
 //
-//		mMenuControlledFragments.put(FRAGMENT_SEARCH_QR, new SearchQrFragment());
+		mMenuControlledFragments.put(FRAGMENT_SEARCH_ALUMNI, new AlumniSearchFragment());
 //
-//		mMenuControlledFragments.put(FRAGMENT_CREATE_REPORT, new CreateReportFragment());
+		mMenuControlledFragments.put(FRAGMENT_SEARCH_ALUMNI_RESULTS, new AlumniResultsListFragment());
 
 		switchContent(FRAGMENT_JOB_SEARCH);
 		

@@ -119,7 +119,7 @@ public class Database
     /**
      * // -------------------------------------------------------------------------
     /**
-     *  Handles logging into the database in a seperate thread.
+     *  Handles logging into the database in a separate thread.
      */
     private class ConnectTask extends AsyncTask<String, Integer, String> {
         protected String doInBackground(String... strings) {

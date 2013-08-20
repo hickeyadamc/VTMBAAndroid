@@ -38,8 +38,8 @@ public class SlidingMenuFragment extends Fragment {
 		adapter = new MainMenuListAdapter(getActivity());
 		adapter.add(new MainMenuItem(getString(R.string.title_fragment_job_search), 
 				R.drawable.ic_menu_search));
-//		adapter.add(new MainMenuItem(getString(R.string.menu_search_by_location), 
-//				R.drawable.ic_menu_nearby));
+		adapter.add(new MainMenuItem(getString(R.string.title_fragment_alumni_search), 
+				R.drawable.ic_menu_search));
 //		adapter.add(new MainMenuItem(getString(R.string.menu_search_by_qr), 
 //				R.drawable.ic_menu_search));	
 //		adapter.add(new MainMenuItem(getString(R.string.menu_create_report), 
@@ -54,9 +54,9 @@ public class SlidingMenuFragment extends Fragment {
 				case 0:
 					mHomeActivity.switchContent(MainActivity.FRAGMENT_JOB_SEARCH);
 					break;
-//				case 1:
-//					mHomeActivity.switchContent(HomeActivity.FRAGMENT_SEARCH_LOCATION);
-//					break;
+				case 1:
+					mHomeActivity.switchContent(MainActivity.FRAGMENT_SEARCH_ALUMNI);
+					break;
 //				case 2:
 //					mHomeActivity.switchContent(HomeActivity.FRAGMENT_SEARCH_QR);
 //					break;

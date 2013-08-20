@@ -59,7 +59,7 @@ public class JobSearchFragment
         super.onCreate(savedInstanceState);
 //        mActivity.requestWindowFeature(Window.FEATURE_NO_TITLE);
         
-        mRootView = inflater.inflate(R.layout.activity_job_search,container,false);
+        mRootView = inflater.inflate(R.layout.fragment_job_search,container,false);
         
 
         checkedCategories = new boolean[position.length];
@@ -98,11 +98,11 @@ public class JobSearchFragment
             }
         });
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                goBackToMenu();
-            }
-        });
+//        backButton.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                goBackToMenu();
+//            }
+//        });
 
         Spinner spinner = (Spinner) mRootView.findViewById(R.id.spinner);
      ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(mActivity,
