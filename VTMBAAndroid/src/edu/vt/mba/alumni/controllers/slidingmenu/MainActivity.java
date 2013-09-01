@@ -32,12 +32,12 @@ public class MainActivity extends SlidingFragmentActivity {
 	
 	private Map<String,SherlockFragment> mMenuControlledFragments;
 	
-	public static final String FRAGMENT_HOME = "home";
+	public static final String FRAGMENT_HOME = "Home";
 	public static final String FRAGMENT_SEARCH_ALUMNI = "Search Alumni";
 	public static final String FRAGMENT_JOB_SEARCH = "Job Search";
 	public static final String FRAGMENT_INFORMATION = "information";
-	public static final String FRAGMENT_JOB_RESULTS = "job results";
-	public static final String FRAGMENT_SEARCH_ALUMNI_RESULTS = "search alumni results";
+	public static final String FRAGMENT_JOB_RESULTS = "Job Results";
+	public static final String FRAGMENT_SEARCH_ALUMNI_RESULTS = "Alumni Results";
 	
 	public static final String TAG = MainActivity.class.getName();
 	

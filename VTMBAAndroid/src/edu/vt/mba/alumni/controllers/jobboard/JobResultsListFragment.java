@@ -30,6 +30,7 @@ public class JobResultsListFragment
     private ArrayList<Job> jobs;
     private ArrayList<String> searchArray;
     
+    private ListView mJobsListView;
     private View mRootView;
     
     private Activity mActivity;
@@ -41,7 +42,7 @@ public class JobResultsListFragment
     {
         super.onCreate(savedInstanceState);
         mActivity = getActivity();
-        mRootView = inflater.inflate(R.layout.activity_job_results_list,container,false);
+        mRootView = inflater.inflate(R.layout.fragment_job_results,container,false);
 //        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 //        setContentView(R.layout.activity_job_results_list);
 
@@ -52,7 +53,7 @@ public class JobResultsListFragment
 //        Intent intent = getIntent();
         
         searchArray = getArguments().getStringArrayList("searchArray");
-        final ListView lv1 = (ListView) mRootView.findViewById(R.id.ListView02);
+        mJobsListView = (ListView) mRootView.findViewById(R.id.listViewJobs);
 
         //Searches database
         Database db = new Database();
@@ -66,55 +67,31 @@ public class JobResultsListFragment
 		};
         db.searchJobs(searchArray.get(0), searchArray.get(1), searchArray.get(2), searchArray.get(3), callback);
 
-        //Creates custom listView
-//        final ListView lv1 = (ListView) mRootView.findViewById(R.id.ListView02);
-//        if(jobs.size() < 1)
-//        {
-//            Toast.makeText(mActivity, "No Results Were Found" ,Toast.LENGTH_LONG).show();
-//        }
-//        else
-//        {
-//        	if(lv1 == null) {
-//        		Log.d(TAG ,"list view was null");
-//        	} else {
-//        		lv1.setAdapter(new JobResultsAdapter(mActivity, jobs));
-//        	}
-////            lv1.setAdapter(new JobResultsAdapter(mActivity, jobs));
-//        }
-
-        lv1.setOnItemClickListener(new OnItemClickListener() {
+        mJobsListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-             Object o = lv1.getItemAtPosition(position);
+             Object o = mJobsListView.getItemAtPosition(position);
              Job fullObject = (Job)o;
 
              openJob(fullObject);
             }
            });
-
-        final Button backButton = (Button) mRootView.findViewById(R.id.backButtontoJobSearch);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                goBack();
-            }
-        });
         
         return mRootView;
     }
 
 
     protected void updateJobs(ArrayList<Job> jobs) {
-    	final ListView lv1 = (ListView) mRootView.findViewById(R.id.ListView02);
       if(jobs.size() < 1)
       {
           Toast.makeText(mActivity, "No Results Were Found" ,Toast.LENGTH_LONG).show();
       }
       else
       {
-      	if(lv1 == null) {
+      	if(mJobsListView == null) {
       		Log.d(TAG ,"list view was null");
       	} else {
-      		lv1.setAdapter(new JobResultsAdapter(mActivity, jobs));
+      		mJobsListView.setAdapter(new JobResultsAdapter(mActivity, jobs));
       	}
 //          lv1.setAdapter(new JobResultsAdapter(mActivity, jobs));
       }

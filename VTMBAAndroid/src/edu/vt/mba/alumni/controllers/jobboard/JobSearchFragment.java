@@ -86,7 +86,6 @@ public class JobSearchFragment
         state = new String();
         state = "ANY";
         final Button searchJobs = (Button) mRootView.findViewById(R.id.searchJobs);
-        final Button backButton = (Button) mRootView.findViewById(R.id.backToMain);
         fullTime = (CheckBox) mRootView.findViewById(R.id.fullTimeBox);
         partTime = (CheckBox) mRootView.findViewById(R.id.partTimeBox);
         intern = (CheckBox) mRootView.findViewById(R.id.internBox);
