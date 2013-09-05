@@ -350,7 +350,7 @@ public class Database
                   for(int i=0;i<jArray.length();i++){
                          json_data = jArray.getJSONObject(i);
                          Job theJob = new Job();
-                         theJob.setJobType(json_data.getString("type"));
+                         theJob.setType(json_data.getString("type"));
                          theJob.setTitle(json_data.getString("title"));
                          theJob.setCompany(json_data.getString("company"));
                          theJob.setLocation(json_data.getString("location"));

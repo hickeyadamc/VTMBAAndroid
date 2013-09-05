@@ -14,5 +14,7 @@
     <dimen name="rounded_button_radius">10dp</dimen>
     <integer name="num_cols">1</integer>
     <dimen name="category_button_border">1dp</dimen>
+    
+    <dimen name ="vtmba_logo_margin_left">25dp</dimen>
 
 </resources>

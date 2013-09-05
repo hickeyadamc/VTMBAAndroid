@@ -10,6 +10,7 @@ import com.slidingmenu.lib.app.SlidingFragmentActivity;
 import edu.vt.mba.alumni.R;
 import edu.vt.mba.alumni.R.layout;
 import edu.vt.mba.alumni.R.menu;
+import edu.vt.mba.alumni.controllers.jobboard.JobDetailsFragment;
 import edu.vt.mba.alumni.controllers.jobboard.JobResultsListFragment;
 import edu.vt.mba.alumni.controllers.jobboard.JobSearchFragment;
 import edu.vt.mba.alumni.controllers.searchalumni.AlumniResultsListFragment;
@@ -24,6 +25,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class MainActivity extends SlidingFragmentActivity {
@@ -35,11 +38,13 @@ public class MainActivity extends SlidingFragmentActivity {
 	public static final String FRAGMENT_HOME = "Home";
 	public static final String FRAGMENT_SEARCH_ALUMNI = "Search Alumni";
 	public static final String FRAGMENT_JOB_SEARCH = "Job Search";
-	public static final String FRAGMENT_INFORMATION = "information";
+	public static final String FRAGMENT_INFORMATION = "Information";
 	public static final String FRAGMENT_JOB_RESULTS = "Job Results";
 	public static final String FRAGMENT_SEARCH_ALUMNI_RESULTS = "Alumni Results";
+	public static final String FRAGMENT_JOB_DETAILS = "Job Details";
 	
 	public static final String TAG = MainActivity.class.getName();
+	public static final String SHARED_PREFS_NAME = "edu.vt.mba.alumni";
 	
 	private TextView mBarTitle;
 	
@@ -47,6 +52,7 @@ public class MainActivity extends SlidingFragmentActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+	    
 		setContentView(R.layout.activity_base);
 		setBehindContentView(R.layout.menu_frame);
 		
@@ -69,18 +75,22 @@ public class MainActivity extends SlidingFragmentActivity {
 		
 		setupSlidingMenu();
 		initMenuControlledFragments();
+		
+		
 	}
 
 	private void initMenuControlledFragments() {
 		mMenuControlledFragments = new HashMap<String, SherlockFragment>();
 
 		mMenuControlledFragments.put(FRAGMENT_JOB_SEARCH, new JobSearchFragment());
-//
+
 		mMenuControlledFragments.put(FRAGMENT_JOB_RESULTS, new JobResultsListFragment());
-//
+
 		mMenuControlledFragments.put(FRAGMENT_SEARCH_ALUMNI, new AlumniSearchFragment());
-//
+
 		mMenuControlledFragments.put(FRAGMENT_SEARCH_ALUMNI_RESULTS, new AlumniResultsListFragment());
+		
+		mMenuControlledFragments.put(FRAGMENT_JOB_DETAILS, new JobDetailsFragment());
 
 		switchContent(FRAGMENT_JOB_SEARCH);
 		
@@ -100,7 +110,6 @@ public class MainActivity extends SlidingFragmentActivity {
 	}
 	
 	public void switchContent(final String fragmentName,Bundle arguments) {
-		Log.d(TAG,"SwitchContent");
 		SherlockFragment newFragment = mMenuControlledFragments
 				.get(fragmentName);
 		if (newFragment != null) {
@@ -121,7 +130,7 @@ public class MainActivity extends SlidingFragmentActivity {
 				}
 			}, 50);
 		} else {
-			Log.d(TAG,"The fragment: " + fragmentName + " wasn't found. Did you add it to the fragment list in MainActivity?");
+			Log.e(TAG,"The fragment: " + fragmentName + " wasn't found. Did you add it to the fragment list in MainActivity?");
 		}
 	}
 	public void leftBarButtonClicked(View v) {
@@ -129,6 +138,20 @@ public class MainActivity extends SlidingFragmentActivity {
 	}
 
 	public void rightBarButtonClicked(View v) {
+		
+	}
+	
+    public void setupLeftActionBarButtonWithDefault() {
+		ImageButton leftBarButton = (ImageButton)getSupportActionBar().getCustomView().findViewById(R.id.leftBarButton);
+		leftBarButton.setBackgroundResource(R.drawable.ic_bar_item_sidebar);
+		leftBarButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				leftBarButtonClicked(v);
+				
+			}
+		});
 		
 	}
 	

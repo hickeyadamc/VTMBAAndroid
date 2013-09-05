@@ -1,6 +1,9 @@
 package edu.vt.mba.alumni.controllers.jobboard;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,13 +11,21 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
+
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.app.SherlockFragment;
+import com.slidingmenu.lib.app.SlidingFragmentActivity;
 
+import edu.vt.mba.alumni.controllers.slidingmenu.MainActivity;
 import edu.vt.mba.alumni.database.Database;
 import edu.vt.mba.alumni.database.Database.SearchJobsTaskCallback;
 import edu.vt.mba.alumni.R;
@@ -25,15 +36,15 @@ import android.view.Menu;
 public class JobResultsListFragment
     extends SherlockFragment
 {
+	public static final String EXTRA_SEARCH_ARRAY = "search array";
 
-
-    private ArrayList<Job> jobs;
-    private ArrayList<String> searchArray;
+    private ArrayList<Job> mJobs;
+    private ArrayList<String> mPreviousSearch;
     
     private ListView mJobsListView;
     private View mRootView;
     
-    private Activity mActivity;
+    private MainActivity mMainActivity;
 	private static final String TAG = JobResultsListFragment.class.getName();
 
     @Override
@@ -41,92 +52,111 @@ public class JobResultsListFragment
 			Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        mActivity = getActivity();
+        mMainActivity = (MainActivity) getActivity();
         mRootView = inflater.inflate(R.layout.fragment_job_results,container,false);
-//        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        setContentView(R.layout.activity_job_results_list);
-
-
-        jobs = new ArrayList<Job>();
-        searchArray = new ArrayList<String>();
-
-//        Intent intent = getIntent();
-        
-        searchArray = getArguments().getStringArrayList("searchArray");
         mJobsListView = (ListView) mRootView.findViewById(R.id.listViewJobs);
-
-        //Searches database
-        Database db = new Database();
-        SearchJobsTaskCallback callback = new SearchJobsTaskCallback() {
-			
-			@Override
-			public void onSearchFinished(ArrayList<Job> jobs) {
-				updateJobs(jobs);
-				
-			}
-		};
-        db.searchJobs(searchArray.get(0), searchArray.get(1), searchArray.get(2), searchArray.get(3), callback);
-
+        
         mJobsListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
              Object o = mJobsListView.getItemAtPosition(position);
              Job fullObject = (Job)o;
-
-             openJob(fullObject);
+             openJobPage(fullObject);
             }
            });
+        
+        setupActionBar();
+        
+        //Compare previous search criteria with current search criteria
+        //If they're equal, use the old job list and do no searching
+        //if they're not equal, search the database
+        ArrayList<String> currentSearchCriteria = getArguments().getStringArrayList(EXTRA_SEARCH_ARRAY);
+        if(listsAreEqualAndNotNull(mPreviousSearch,currentSearchCriteria)) {
+        	updateJobsAndLoadUi(mJobs);
+        } else {
+        	mPreviousSearch = currentSearchCriteria;
+        	searchForJobs(currentSearchCriteria);
+        }
         
         return mRootView;
     }
 
+	private void searchForJobs(List<String> searchList) {
+    	Database db = new Database();
+        SearchJobsTaskCallback callback = new SearchJobsTaskCallback() {
+			
+			@Override
+			public void onSearchFinished(ArrayList<Job> jobs) {
+				updateJobsAndLoadUi(jobs);
+				
+			}
+		};
+        db.searchJobs(searchList.get(0), searchList.get(1), searchList.get(2), searchList.get(3), callback);
+    }
 
-    protected void updateJobs(ArrayList<Job> jobs) {
+
+    private boolean listsAreEqualAndNotNull(List<String> firstList,
+			List<String> secondList) {
+		if((firstList == null)||(secondList == null)) {
+			return false;
+		}
+		if(firstList.size() != secondList.size()) {
+			return false;
+		}
+		for(int i=0;i<firstList.size();++i) {
+			if( !firstList.get(i).equals( secondList.get(i)) ){
+				return false;
+			}
+		}
+		
+		
+		
+		return true;
+	}
+
+
+	private void setupActionBar() {
+		ImageButton leftBarButton = (ImageButton) mMainActivity.getSupportActionBar().getCustomView().findViewById(R.id.leftBarButton);
+		leftBarButton.setBackgroundResource(R.drawable.ic_bar_item_back);
+		leftBarButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				mMainActivity.switchContent(MainActivity.FRAGMENT_JOB_SEARCH);
+				
+			}
+		});
+		
+	}
+
+
+	protected void updateJobsAndLoadUi(ArrayList<Job> jobs) {
+		mJobs = jobs;
       if(jobs.size() < 1)
       {
-          Toast.makeText(mActivity, "No Results Were Found" ,Toast.LENGTH_LONG).show();
+          Toast.makeText(mMainActivity, "No Results Were Found" ,Toast.LENGTH_LONG).show();
       }
       else
       {
       	if(mJobsListView == null) {
       		Log.d(TAG ,"list view was null");
       	} else {
-      		mJobsListView.setAdapter(new JobResultsAdapter(mActivity, jobs));
+      		mJobsListView.setAdapter(new JobResultsAdapter(mMainActivity, jobs));
       	}
-//          lv1.setAdapter(new JobResultsAdapter(mActivity, jobs));
       }
 		
 	}
 
 
-	/**
-     * Go back to the job search class
-     */
-    public void goBack()
-    {
-//        Intent intent = new Intent(this, JobSearchFragment.class);
-//        intent.putExtra("checkVal", 2);
-//        intent.putExtra("searchArray", searchArray);
-//        startActivity(intent);
-//        finish();
-    }
+
 
     /**
      * View info for selected job
      * @param job
      */
-    public void openJob(Job job)
+    private void openJobPage(Job job)
     {
-        Intent intent = new Intent(mActivity, JobPage.class);
-        intent.putExtra("title",job.getTitle());
-        intent.putExtra("company",job.getCompany());
-        intent.putExtra("jobType",job.getJobType());
-        intent.putExtra("location",job.getLocation());
-        intent.putExtra("description",job.getDescription());
-        intent.putExtra("category",job.getCategory());
-        intent.putExtra("time",job.getTime());
-        intent.putExtra("searchArray", searchArray);
-        startActivity(intent);
+        mMainActivity.switchContent(MainActivity.FRAGMENT_JOB_DETAILS, job.getBundle());
     }
 
 }

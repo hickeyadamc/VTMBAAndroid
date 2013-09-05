@@ -74,6 +74,8 @@ public class AlumniSearchFragment
      adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
      spinner.setAdapter(adapter);
      spinner.setOnItemSelectedListener(this);
+     
+     mMainActivity.setupLeftActionBarButtonWithDefault();
      return mRootView;
 
     }

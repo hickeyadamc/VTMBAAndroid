@@ -2,11 +2,17 @@ package edu.vt.mba.alumni.controllers.jobboard;
 
 import android.content.Intent;
 import android.text.method.ScrollingMovementMethod;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
+
 import java.util.ArrayList;
+
+import com.actionbarsherlock.app.SherlockFragment;
 
 import edu.vt.mba.alumni.R;
 import edu.vt.mba.alumni.controllers.slidingmenu.MainActivity;
@@ -14,78 +20,58 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 
-public class JobPage
-    extends Activity
-{
-
-    private String jobTitle;
-    private String jobType;
-    private String jobCompany;
-    private String jobLocation;
-    private String jobDescription;
-    private String jobCategory;
-    private String jobTime;
-
-    private ArrayList<String> searchArray;
+public class JobDetailsFragment
+    extends SherlockFragment
+    {
+	
+    private Job mJob;
+    
+    private MainActivity mMainActivity;
+    private View mRootView;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_job_page);
+//        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        setContentView(R.layout.activity_job_page);
+        
+        mRootView = inflater.inflate(R.layout.fragment_job_details, container, false);
+        mMainActivity = (MainActivity) getActivity();
+        
+        Bundle arguments = getArguments();
+        mJob = new Job(arguments);
 
-        Intent intent = getIntent();
-        jobTitle = intent.getStringExtra("title");
-        jobCompany = intent.getStringExtra("company");
-        jobType = intent.getStringExtra("jobType");
-        jobLocation = intent.getStringExtra("location");
-        jobDescription = intent.getStringExtra("description");
-        jobCategory = intent.getStringExtra("category");
-        jobTime = intent.getStringExtra("time");
+        final TextView title = (TextView) mRootView.findViewById(R.id.jobTitle);
+        title.setText(mJob.getTitle());
 
-        searchArray = new ArrayList<String>();
+        final TextView company = (TextView) mRootView.findViewById(R.id.jobEmployer);
+        company.setText("Company: " + mJob.getCompany());
 
-        searchArray = intent.getStringArrayListExtra("searchArray");
+        final TextView location = (TextView) mRootView.findViewById(R.id.jobLocation);
+        location.setText("Location: " + mJob.getLocation());
 
-        final TextView title = (TextView) findViewById(R.id.jobTitle);
-        title.setText(jobTitle);
+        final TextView type = (TextView) mRootView.findViewById(R.id.jobType);
+        type.setText(createTypeString(mJob.getType()));
 
-        final TextView company = (TextView) findViewById(R.id.jobEmployer);
-        company.setText("Company: " + jobCompany);
+        final TextView time = (TextView) mRootView.findViewById(R.id.jobTime);
+        time.setText("Time: " + mJob.getTime());
 
-        final TextView location = (TextView) findViewById(R.id.jobLocation);
-        location.setText("Location: " + jobLocation);
+        final TextView description = (TextView) mRootView.findViewById(R.id.jobDescription);
+        description.setText("Description: " + mJob.getDescription());
 
-        final TextView type = (TextView) findViewById(R.id.jobType);
-        type.setText(createTypeString(jobType));
-
-        final TextView time = (TextView) findViewById(R.id.jobTime);
-        time.setText("Time: " + jobTime);
-
-        final TextView description = (TextView) findViewById(R.id.jobDescription);
-        description.setText("Description: " + jobDescription);
-
-        final TextView category = (TextView) findViewById(R.id.jobCategory);
-        category.setText(createCategoryString(jobCategory));
+        final TextView category = (TextView) mRootView.findViewById(R.id.jobCategory);
+        category.setText(createCategoryString(mJob.getCategory()));
 
         description.setMovementMethod(new ScrollingMovementMethod());
         title.setMovementMethod(new ScrollingMovementMethod());
 
-        final Button backResultsButton = (Button) findViewById(R.id.backToResultsButton);
-        final Button backMenuButton = (Button) findViewById(R.id.backToMenuButton);
-
-        backResultsButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                goBackToResults();
-            }
-        });
-        backMenuButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                goBackToMenu();
-            }
-        });
+ 
+        
+        setupActionBar();
+        return mRootView;
     }
 
     /**
@@ -197,34 +183,47 @@ public class JobPage
 
         return cat;
     }
+    private void setupActionBar() {
+		ImageButton leftBarButton = (ImageButton) mMainActivity.getSupportActionBar().getCustomView().findViewById(R.id.leftBarButton);
+		leftBarButton.setBackgroundResource(R.drawable.ic_bar_item_back);
+		leftBarButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				mMainActivity.switchContent(MainActivity.FRAGMENT_JOB_RESULTS);
+				
+			}
+		});
+		
+	}
 
     /**
      * Go back to the search results
      */
-    public void goBackToResults()
-    {
-        Intent intent = new Intent(this, JobResultsListFragment.class);
-        intent.putExtra("searchArray", searchArray);
-        startActivity(intent);
-        finish();
-    }
+//    public void goBackToResults()
+//    {
+//        Intent intent = new Intent(this, JobResultsListFragment.class);
+//        intent.putExtra("searchArray", searchArray);
+//        startActivity(intent);
+//        finish();
+//    }
 
-    /**
-     * Go back to the main menu
-     */
-    public void goBackToMenu()
-    {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
+//    /**
+//     * Go back to the main menu
+//     */
+//    public void goBackToMenu()
+//    {
+//        Intent intent = new Intent(this, MainActivity.class);
+//        startActivity(intent);
+//        finish();
+//    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.job_page, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu)
+//    {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.job_page, menu);
+//        return true;
+//    }
 
 }

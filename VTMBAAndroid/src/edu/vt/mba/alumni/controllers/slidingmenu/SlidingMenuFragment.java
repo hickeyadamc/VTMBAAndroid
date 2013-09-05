@@ -39,7 +39,7 @@ public class SlidingMenuFragment extends Fragment {
 		adapter.add(new MainMenuItem(MainActivity.FRAGMENT_JOB_SEARCH, 
 				R.drawable.ic_menu_search));
 		adapter.add(new MainMenuItem(MainActivity.FRAGMENT_SEARCH_ALUMNI, 
-				R.drawable.ic_menu_search));
+				R.drawable.ic_search_alumni));
 //		adapter.add(new MainMenuItem(getString(R.string.menu_search_by_qr), 
 //				R.drawable.ic_menu_search));	
 //		adapter.add(new MainMenuItem(getString(R.string.menu_create_report), 

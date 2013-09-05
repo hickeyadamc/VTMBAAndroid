@@ -110,6 +110,7 @@ public class JobSearchFragment
      spinner.setAdapter(adapter);
      spinner.setOnItemSelectedListener(this);
      
+     mMainActivity.setupLeftActionBarButtonWithDefault();
      return mRootView;
 
     }
@@ -281,7 +282,7 @@ public class JobSearchFragment
 //            startActivity(intent);
 //            finish();
             Bundle arguments = new Bundle();
-            arguments.putStringArrayList("searchArray", searchArray);
+            arguments.putStringArrayList(JobResultsListFragment.EXTRA_SEARCH_ARRAY, searchArray);
             mMainActivity.switchContent(MainActivity.FRAGMENT_JOB_RESULTS, arguments);
         }
     }

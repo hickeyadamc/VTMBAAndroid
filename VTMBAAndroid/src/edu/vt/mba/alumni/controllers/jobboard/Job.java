@@ -1,34 +1,53 @@
 package edu.vt.mba.alumni.controllers.jobboard;
 
+import android.os.Bundle;
+
 public class Job
 {
     private String jobType;
-    private String title;
-    private String company;
-    private String location;
-    private String description;
-    private String category;
-    private String time;
-
-    /**
-     * Constructor
-     */
-    public Job()
-    {
-        this.jobType = "";
-        this.title = "";
-        this.company = "";
-        this.location = "";
-        this.description = "";
-        this.category = "";
-        this.time = "";
-    }
+    private String jobTitle;
+    private String jobCompany;
+    private String jobLocation;
+    private String jobDescription;
+    private String jobCategory;
+    private String jobTime;
+    
+	public static final String EXTRA_TITLE = "job title";
+	public static final String EXTRA_COMPANY = "company";
+	public static final String EXTRA_TYPE = "job type";
+	public static final String EXTRA_LOCATION = "job location";
+	public static final String EXTRA_DESCRIPTION = "job description";
+	public static final String EXTRA_CATEGORY = "category";
+	public static final String EXTRA_TIME = "time";
+	
+	
+	public Job() {}
+	public Job(Bundle arguments) {
+        jobTitle = arguments.getString(EXTRA_TITLE);
+        jobCompany = arguments.getString(EXTRA_COMPANY);
+        jobType = arguments.getString(EXTRA_TYPE);
+        jobLocation = arguments.getString(EXTRA_LOCATION);
+        jobDescription = arguments.getString(EXTRA_DESCRIPTION);
+        jobCategory = arguments.getString(EXTRA_CATEGORY);
+        jobTime = arguments.getString(EXTRA_TIME);
+	}
+	public Bundle getBundle() {
+		Bundle bundle = new Bundle();
+        bundle.putString(EXTRA_TITLE,jobTitle);
+        bundle.putString(EXTRA_COMPANY,getCompany());
+        bundle.putString(EXTRA_TYPE,getType());
+        bundle.putString(EXTRA_LOCATION,getLocation());
+        bundle.putString(EXTRA_DESCRIPTION,getDescription());
+        bundle.putString(EXTRA_CATEGORY,getCategory());
+        bundle.putString(EXTRA_TIME,getTime());
+        return bundle;
+	}
 
     /**
      * Getter method for jobType
      * @return jobType
      */
-    public String getJobType()
+    public String getType()
     {
         return jobType;
     }
@@ -37,7 +56,7 @@ public class Job
      * Setter method for jobType
      * @param jobType
      */
-    public void setJobType(String jobType)
+    public void setType(String jobType)
     {
         this.jobType = jobType;
     }
@@ -48,7 +67,7 @@ public class Job
      */
     public String getTitle()
     {
-        return title;
+        return jobTitle;
     }
 
     /**
@@ -57,7 +76,7 @@ public class Job
      */
     public void setTitle(String title)
     {
-        this.title = title;
+        this.jobTitle = title;
     }
 
     /**
@@ -66,7 +85,7 @@ public class Job
      */
     public String getCompany()
     {
-        return company;
+        return jobCompany;
     }
 
     /**
@@ -75,7 +94,7 @@ public class Job
      */
     public void setCompany(String company)
     {
-        this.company = company;
+        this.jobCompany = company;
     }
 
     /**
@@ -84,7 +103,7 @@ public class Job
      */
     public String getLocation()
     {
-        return location;
+        return jobLocation;
     }
 
     /**
@@ -93,7 +112,7 @@ public class Job
      */
     public void setLocation(String location)
     {
-        this.location = location;
+        this.jobLocation = location;
     }
 
     /**
@@ -102,7 +121,7 @@ public class Job
      */
     public String getDescription()
     {
-        return description;
+        return jobDescription;
     }
 
     /**
@@ -111,7 +130,7 @@ public class Job
      */
     public void setDescription(String description)
     {
-        this.description = description;
+        this.jobDescription = description;
     }
 
     /**
@@ -120,7 +139,7 @@ public class Job
      */
     public String getCategory()
     {
-        return category;
+        return jobCategory;
     }
 
     /**
@@ -129,7 +148,7 @@ public class Job
      */
     public void setCategory(String category)
     {
-        this.category = category;
+        this.jobCategory = category;
     }
 
     /**
@@ -138,7 +157,7 @@ public class Job
      */
     public String getTime()
     {
-        return time;
+        return jobTime;
     }
 
     /**
@@ -147,7 +166,7 @@ public class Job
      */
     public void setTime(String time)
     {
-        this.time = time;
+        this.jobTime = time;
     }
 
 }
