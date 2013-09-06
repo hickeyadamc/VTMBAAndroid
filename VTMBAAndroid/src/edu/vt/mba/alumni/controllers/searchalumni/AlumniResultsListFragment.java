@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.actionbarsherlock.app.SherlockFragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,9 +17,12 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import edu.vt.mba.alumni.R;
+import edu.vt.mba.alumni.controllers.slidingmenu.MainActivity;
 import edu.vt.mba.alumni.database.Contact;
 import edu.vt.mba.alumni.database.Database;
 
@@ -31,7 +35,7 @@ public class AlumniResultsListFragment
     public static final String EXTRA_SEARCH_PARAMETERS = "searchArray";
 	private static final String TAG = AlumniResultsListFragment.class.getName();
     
-    private Activity mActivity;
+    private MainActivity mMainActivity;
     private View mRootView;
 
     @Override
@@ -40,8 +44,8 @@ public class AlumniResultsListFragment
     {
         super.onCreate(savedInstanceState);
 //        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        mRootView = inflater.inflate(R.layout.activity_results_list,container,false);
-        mActivity = getActivity();
+        mRootView = inflater.inflate(R.layout.fragment_results_list,container,false);
+        mMainActivity = (MainActivity) getActivity();
         contacts = new ArrayList<Contact>();
         searchArray = new ArrayList<String>();
 
@@ -55,14 +59,14 @@ public class AlumniResultsListFragment
         contacts = db.search(searchArray.get(0), searchArray.get(1), searchArray.get(2), searchArray.get(3), searchArray.get(4), searchArray.get(5));
 
         //Populates listView
-        final ListView lv1 = (ListView) mRootView.findViewById(R.id.ListView01);
+        final ListView lv1 = (ListView) mRootView.findViewById(R.id.listViewResults);
         if(contacts.size() < 1)
         {
-            Toast.makeText(mActivity, "No Results Were Found" ,Toast.LENGTH_LONG).show();
+            Toast.makeText(mMainActivity, "No Results Were Found" ,Toast.LENGTH_LONG).show();
         }
         else
         {
-            lv1.setAdapter(new ContactResultsAdapter(mActivity, contacts));
+            lv1.setAdapter(new ContactResultsAdapter(mMainActivity, contacts));
         }
 
         lv1.setOnItemClickListener(new OnItemClickListener() {
@@ -74,13 +78,8 @@ public class AlumniResultsListFragment
              openContact(fullObject);
             }
            });
-
-        final Button backButton = (Button) mRootView.findViewById(R.id.backButton1);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-//                goBack();
-            }
-        });
+        
+        setupActionBar();
         return mRootView;
     }
 
@@ -89,7 +88,7 @@ public class AlumniResultsListFragment
      */
     public void goBack()
     {
-        Intent intent = new Intent(mActivity, AlumniSearchFragment.class);
+        Intent intent = new Intent(mMainActivity, AlumniSearchFragment.class);
         intent.putExtra("checkVal", 2);
         intent.putExtra("searchArray", searchArray);
         startActivity(intent);
@@ -103,7 +102,7 @@ public class AlumniResultsListFragment
      */
     public void openContact(Contact contact)
     {
-        Intent intent = new Intent(mActivity, ContactPage.class);
+        Intent intent = new Intent(mMainActivity, ContactPage.class);
         intent.putExtra("name",contact.getName());
         intent.putExtra("email",contact.getEmail());
         intent.putExtra("location",contact.getLocation());
@@ -117,12 +116,28 @@ public class AlumniResultsListFragment
         startActivity(intent);
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu)
-//    {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.contact_results_list, menu);
-//        return true;
-//    }
+	private void setupActionBar() {
+		LayoutInflater inflator = (LayoutInflater) mMainActivity
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View v = inflator.inflate(R.layout.actionbar_main, null);
+
+		mMainActivity.getSupportActionBar().setCustomView(v);
+		
+		ImageButton leftBarButton = (ImageButton) mMainActivity.getSupportActionBar().getCustomView().findViewById(R.id.leftBarButton);
+		leftBarButton.setBackgroundResource(R.drawable.ic_bar_item_back);
+		leftBarButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				mMainActivity.switchContent(MainActivity.FRAGMENT_SEARCH_ALUMNI);
+				
+			}
+		});
+		
+		//setup text view
+		TextView barTitle = (TextView) v.findViewById(R.id.barTitle);
+		barTitle.setText(MainActivity.FRAGMENT_SEARCH_ALUMNI_RESULTS);
+		
+	}
 
 }

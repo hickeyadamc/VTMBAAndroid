@@ -10,6 +10,8 @@ import com.slidingmenu.lib.app.SlidingFragmentActivity;
 import edu.vt.mba.alumni.R;
 import edu.vt.mba.alumni.R.layout;
 import edu.vt.mba.alumni.R.menu;
+import edu.vt.mba.alumni.controllers.home.HomeFragment;
+import edu.vt.mba.alumni.controllers.information.InfoFragment;
 import edu.vt.mba.alumni.controllers.jobboard.JobDetailsFragment;
 import edu.vt.mba.alumni.controllers.jobboard.JobResultsListFragment;
 import edu.vt.mba.alumni.controllers.jobboard.JobSearchFragment;
@@ -32,16 +34,18 @@ import android.widget.TextView;
 public class MainActivity extends SlidingFragmentActivity {
 	private Fragment mMenuFragment;
 	private SherlockFragment mCurrentFragment;
+	private String mCurrentTitle;
 	
 	private Map<String,SherlockFragment> mMenuControlledFragments;
 	
 	public static final String FRAGMENT_HOME = "Home";
-	public static final String FRAGMENT_SEARCH_ALUMNI = "Search Alumni";
+	public static final String FRAGMENT_SEARCH_ALUMNI = "Alumni Search";
 	public static final String FRAGMENT_JOB_SEARCH = "Job Search";
 	public static final String FRAGMENT_INFORMATION = "Information";
 	public static final String FRAGMENT_JOB_RESULTS = "Job Results";
 	public static final String FRAGMENT_SEARCH_ALUMNI_RESULTS = "Alumni Results";
 	public static final String FRAGMENT_JOB_DETAILS = "Job Details";
+	public static final String FRAGMENT_ABOUT = "About";
 	
 	public static final String TAG = MainActivity.class.getName();
 	public static final String SHARED_PREFS_NAME = "edu.vt.mba.alumni";
@@ -91,6 +95,10 @@ public class MainActivity extends SlidingFragmentActivity {
 		mMenuControlledFragments.put(FRAGMENT_SEARCH_ALUMNI_RESULTS, new AlumniResultsListFragment());
 		
 		mMenuControlledFragments.put(FRAGMENT_JOB_DETAILS, new JobDetailsFragment());
+		
+		mMenuControlledFragments.put(FRAGMENT_ABOUT, new InfoFragment());
+		
+		mMenuControlledFragments.put(FRAGMENT_HOME, new HomeFragment());
 
 		switchContent(FRAGMENT_JOB_SEARCH);
 		
@@ -117,6 +125,7 @@ public class MainActivity extends SlidingFragmentActivity {
 				getSupportFragmentManager().beginTransaction()
 						.replace(R.id.content_frame, newFragment).commit();
 				mCurrentFragment = newFragment;
+				mCurrentTitle = fragmentName;
 				mBarTitle.setText(fragmentName);
 				if(arguments != null) {
 					mCurrentFragment.setArguments(arguments);
@@ -142,6 +151,8 @@ public class MainActivity extends SlidingFragmentActivity {
 	}
 	
     public void setupLeftActionBarButtonWithDefault() {
+//		mBarTitle.setText(mCurrentTitle);
+		
 		ImageButton leftBarButton = (ImageButton)getSupportActionBar().getCustomView().findViewById(R.id.leftBarButton);
 		leftBarButton.setBackgroundResource(R.drawable.ic_bar_item_sidebar);
 		leftBarButton.setOnClickListener(new View.OnClickListener() {
@@ -152,6 +163,12 @@ public class MainActivity extends SlidingFragmentActivity {
 				
 			}
 		});
+		
+	}
+
+	public void setActionBarTitleText(String titleText) {
+		TextView barTitle = (TextView)getSupportActionBar().getCustomView().findViewById(R.id.barTitle);
+		barTitle.setText(titleText);
 		
 	}
 	

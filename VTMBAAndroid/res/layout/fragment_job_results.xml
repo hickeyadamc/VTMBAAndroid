@@ -7,14 +7,15 @@
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="65dp"
+        android:layout_height="@dimen/vtmba_logo_height"
         android:paddingLeft="@dimen/vtmba_logo_margin_left"
         android:src="@drawable/mba_logo" />
 
     <ListView
         android:id="@+id/listViewJobs"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:dividerHeight="@dimen/list_view_dividor_height" >
     </ListView>
 
 </LinearLayout>

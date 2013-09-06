@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="vertical" 
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent" >
-    <TextView android:id="@+id/jobTitle"
-  android:textSize="14sp" 
-  android:textStyle="bold" 
-  android:maxLines = "1"
-  android:layout_width="wrap_content" 
-  android:layout_height="wrap_content"/>
- <TextView android:id="@+id/secondJobField" 
-  android:layout_width="wrap_content" 
-  android:layout_height="wrap_content"/>
- <TextView android:id="@+id/thirdJobField" 
-  android:layout_width="wrap_content" 
-  android:layout_height="wrap_content"/>
-    
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/jobTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/secondJobField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/thirdJobField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

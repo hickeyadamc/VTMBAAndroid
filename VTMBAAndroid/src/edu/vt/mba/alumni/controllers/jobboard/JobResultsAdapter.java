@@ -48,7 +48,7 @@ public class JobResultsAdapter extends BaseAdapter
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-         convertView = mInflater.inflate(R.layout.custom_row2, null);
+         convertView = mInflater.inflate(R.layout.job_result_row, null);
          holder = new ViewHolder();
          holder.txtTitle = (TextView) convertView.findViewById(R.id.jobTitle);
          holder.txtSecondField = (TextView) convertView.findViewById(R.id.secondJobField);

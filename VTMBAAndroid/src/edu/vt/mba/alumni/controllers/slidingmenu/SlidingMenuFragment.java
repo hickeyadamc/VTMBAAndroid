@@ -36,14 +36,14 @@ public class SlidingMenuFragment extends Fragment {
 		// init the main menu options with an adapter
 		lv = (ListView) view.findViewById(R.id.menu_list);
 		adapter = new MainMenuListAdapter(getActivity());
+		adapter.add(new MainMenuItem(MainActivity.FRAGMENT_HOME, 
+				R.drawable.ic_menu_home));
 		adapter.add(new MainMenuItem(MainActivity.FRAGMENT_JOB_SEARCH, 
 				R.drawable.ic_menu_search));
 		adapter.add(new MainMenuItem(MainActivity.FRAGMENT_SEARCH_ALUMNI, 
 				R.drawable.ic_search_alumni));
-//		adapter.add(new MainMenuItem(getString(R.string.menu_search_by_qr), 
-//				R.drawable.ic_menu_search));	
-//		adapter.add(new MainMenuItem(getString(R.string.menu_create_report), 
-//				R.drawable.ic_menu_report));
+		adapter.add(new MainMenuItem(MainActivity.FRAGMENT_ABOUT, 
+				R.drawable.ic_menu_technology));	
 		lv.setAdapter(adapter);
 		
 		// config menu item click control
@@ -52,21 +52,24 @@ public class SlidingMenuFragment extends Fragment {
 					int position, long id) {								
 				switch (position) {
 				case 0:
-					mHomeActivity.switchContent(MainActivity.FRAGMENT_JOB_SEARCH);
+					mHomeActivity.switchContent(MainActivity.FRAGMENT_HOME);
 					break;
 				case 1:
+					mHomeActivity.switchContent(MainActivity.FRAGMENT_JOB_SEARCH);
+					break;
+				case 2:
 					mHomeActivity.switchContent(MainActivity.FRAGMENT_SEARCH_ALUMNI);
 					break;
-//				case 2:
-//					mHomeActivity.switchContent(HomeActivity.FRAGMENT_SEARCH_QR);
-//					break;
+				case 3:
+					mHomeActivity.switchContent(MainActivity.FRAGMENT_ABOUT);
+					break;
 //				case 3:
 //					mHomeActivity.switchContent(HomeActivity.FRAGMENT_CREATE_REPORT);
 //					break;
 				}
 				
 				if (firstTimeStartup) {// first time  highlight first row
-					currentedSelectedView = lv.getChildAt(0);
+					currentedSelectedView = lv.getChildAt(1);
 			    }
 			    firstTimeStartup = false; 
 				// make the right highlight for the background color
@@ -101,7 +104,7 @@ public class SlidingMenuFragment extends Fragment {
 				convertView = LayoutInflater.from(getContext()).inflate(R.layout.sliding_menu_list_row, null);
 			}
 			
-			if (firstTimeStartup && position == 0) {
+			if (firstTimeStartup && position == 1) {
 				convertView.setBackgroundResource(R.color.menu_background_select_color);
 	        }
 			

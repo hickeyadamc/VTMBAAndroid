@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -116,6 +117,12 @@ public class JobResultsListFragment
 
 
 	private void setupActionBar() {
+		LayoutInflater inflator = (LayoutInflater) mMainActivity
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View v = inflator.inflate(R.layout.actionbar_main, null);
+
+		mMainActivity.getSupportActionBar().setCustomView(v);
+		
 		ImageButton leftBarButton = (ImageButton) mMainActivity.getSupportActionBar().getCustomView().findViewById(R.id.leftBarButton);
 		leftBarButton.setBackgroundResource(R.drawable.ic_bar_item_back);
 		leftBarButton.setOnClickListener(new View.OnClickListener() {
@@ -126,6 +133,10 @@ public class JobResultsListFragment
 				
 			}
 		});
+		
+		//setup text view
+		TextView barTitle = (TextView) v.findViewById(R.id.barTitle);
+		barTitle.setText(MainActivity.FRAGMENT_JOB_RESULTS);
 		
 	}
 

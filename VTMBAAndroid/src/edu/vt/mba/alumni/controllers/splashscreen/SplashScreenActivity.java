@@ -1,6 +1,7 @@
 package edu.vt.mba.alumni.controllers.splashscreen;
 
 import edu.vt.mba.alumni.R;
+import edu.vt.mba.alumni.controllers.login.LoginActivity;
 import edu.vt.mba.alumni.controllers.slidingmenu.MainActivity;
 import android.app.Activity;
 import android.content.Intent;
@@ -14,7 +15,7 @@ public class SplashScreenActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash_screen);
 		
-		Intent i = new Intent(this, MainActivity.class);
+		Intent i = new Intent(this, LoginActivity.class);
 		startActivity(i);
 	}
 

@@ -42,6 +42,20 @@ public class Job
         bundle.putString(EXTRA_TIME,getTime());
         return bundle;
 	}
+	
+	public String toString() {
+		String stringRepresentation = "";
+		stringRepresentation += jobTitle;
+		stringRepresentation += "\n\n" +jobType;
+		stringRepresentation += "\n\n" +jobCompany;
+		stringRepresentation += "\n\n" +jobLocation;
+		stringRepresentation += "\n\n" +jobDescription;
+		stringRepresentation += "\n\n" +jobCategory;
+		stringRepresentation += "\n\n" +jobTime;
+		
+		
+		return stringRepresentation;
+	}
 
     /**
      * Getter method for jobType

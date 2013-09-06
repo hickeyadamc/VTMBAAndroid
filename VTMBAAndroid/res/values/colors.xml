@@ -33,5 +33,7 @@
         <color name="white">#ffffffff</color>
         <color name="black">#ff000000</color>
         
+        <color name ="transparent">#80000000</color>
+        
 	    <color name="default_background_color">#ffffffff</color>
     </resources>

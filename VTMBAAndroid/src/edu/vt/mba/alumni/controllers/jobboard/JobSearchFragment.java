@@ -111,6 +111,7 @@ public class JobSearchFragment
      spinner.setOnItemSelectedListener(this);
      
      mMainActivity.setupLeftActionBarButtonWithDefault();
+     mMainActivity.setActionBarTitleText(MainActivity.FRAGMENT_JOB_SEARCH);
      return mRootView;
 
     }

@@ -18,112 +18,113 @@
             <ImageView
                 android:id="@+id/imageView1"
                 android:layout_width="wrap_content"
-                android:layout_height="65dp"
+                android:layout_height="@dimen/vtmba_logo_height"
                 android:paddingLeft="@dimen/vtmba_logo_margin_left"
-                android:src="@drawable/mba_logo" />
+                android:src="@drawable/mba_logo" /> 
 
             <TextView
                 android:id="@+id/textView1"
                 style="?android:listSeparatorTextViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dividor_padding_bottom"
                 android:text="TITLE" />
 
             <TextView
                 android:id="@+id/jobTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:maxLines="2"
-                android:scrollbars="vertical"
-                android:textSize="16sp" />
+                android:layout_marginLeft="@dimen/interior_padding_left"
+                android:layout_marginRight="@dimen/interior_padding_right" />
 
             <TextView
                 android:id="@+id/textView1"
                 style="?android:listSeparatorTextViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dividor_padding_bottom"
+                android:layout_marginTop="@dimen/dividor_padding_top"
                 android:text="COMPANY" />
 
             <TextView
                 android:id="@+id/jobEmployer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp" />
+                android:layout_marginLeft="@dimen/interior_padding_left"
+                android:layout_marginRight="@dimen/interior_padding_right" />
 
             <TextView
                 android:id="@+id/textView1"
                 style="?android:listSeparatorTextViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dividor_padding_bottom"
+                android:layout_marginTop="@dimen/dividor_padding_top"
                 android:text="LOCATION" />
 
             <TextView
                 android:id="@+id/jobLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp" />
+                android:layout_marginLeft="@dimen/interior_padding_left"
+                android:layout_marginRight="@dimen/interior_padding_right" />
 
             <TextView
                 android:id="@+id/textView1"
                 style="?android:listSeparatorTextViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dividor_padding_bottom"
+                android:layout_marginTop="@dimen/dividor_padding_top"
                 android:text="TYPE" />
 
             <TextView
                 android:id="@+id/jobType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginLeft="@dimen/interior_padding_left"
+                android:layout_marginRight="@dimen/interior_padding_right" />
 
             <TextView
                 android:id="@+id/textView1"
                 style="?android:listSeparatorTextViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dividor_padding_bottom"
-                android:text="AVAILABLE" />
-
-            <TextView
-                android:id="@+id/jobTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"/>
-
-            <TextView
-                android:id="@+id/textView1"
-                style="?android:listSeparatorTextViewStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dividor_padding_bottom"
-                android:text="DESCRIPTION" />
-
-            <TextView
-                android:id="@+id/jobDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:scrollbars="vertical" />
-
-            <TextView
-                android:id="@+id/textView1"
-                style="?android:listSeparatorTextViewStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dividor_padding_bottom"
+                android:layout_marginTop="@dimen/dividor_padding_top"
                 android:text="CATEGORY" />
 
             <TextView
                 android:id="@+id/jobCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Category:" />
+                android:layout_marginLeft="@dimen/interior_padding_left"
+                android:layout_marginRight="@dimen/interior_padding_right" />
+            
+            <TextView
+                android:id="@+id/textView1"
+                style="?android:listSeparatorTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dividor_padding_top"
+                android:text="AVAILABLE" />
+
+            <TextView
+                android:id="@+id/jobTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/interior_padding_left"
+                android:layout_marginRight="@dimen/interior_padding_right" />
+
+            <TextView
+                android:id="@+id/textView1"
+                style="?android:listSeparatorTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dividor_padding_top"
+                android:text="DESCRIPTION" />
+
+            <TextView
+                android:id="@+id/jobDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/interior_padding_left"
+                android:layout_marginRight="@dimen/interior_padding_right" />
         </LinearLayout>
     </ScrollView>
 

@@ -1,5 +1,6 @@
 package edu.vt.mba.alumni.controllers.jobboard;
 
+import android.content.Context;
 import android.content.Intent;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -48,19 +50,19 @@ public class JobDetailsFragment
         title.setText(mJob.getTitle());
 
         final TextView company = (TextView) mRootView.findViewById(R.id.jobEmployer);
-        company.setText("Company: " + mJob.getCompany());
+        company.setText(mJob.getCompany());
 
         final TextView location = (TextView) mRootView.findViewById(R.id.jobLocation);
-        location.setText("Location: " + mJob.getLocation());
+        location.setText(mJob.getLocation());
 
         final TextView type = (TextView) mRootView.findViewById(R.id.jobType);
         type.setText(createTypeString(mJob.getType()));
 
         final TextView time = (TextView) mRootView.findViewById(R.id.jobTime);
-        time.setText("Time: " + mJob.getTime());
+        time.setText(mJob.getTime());
 
         final TextView description = (TextView) mRootView.findViewById(R.id.jobDescription);
-        description.setText("Description: " + mJob.getDescription());
+        description.setText(mJob.getDescription());
 
         final TextView category = (TextView) mRootView.findViewById(R.id.jobCategory);
         category.setText(createCategoryString(mJob.getCategory()));
@@ -82,7 +84,7 @@ public class JobDetailsFragment
     public String createTypeString(String param)
     {
         String type = new String();
-        type = "Type: ";
+        type = "";
         String[] words = param.split(":");
         for(int i=0; i <words.length; i++)
         {
@@ -115,7 +117,7 @@ public class JobDetailsFragment
     public String createCategoryString(String param)
     {
         String cat = new String();
-        cat = "Category: ";
+        cat = "";
         String[] words = param.split(":");
         for( int i = 0; i<words.length; i++)
         {
@@ -184,6 +186,14 @@ public class JobDetailsFragment
         return cat;
     }
     private void setupActionBar() {
+    	//set the custom view
+		LayoutInflater inflator = (LayoutInflater) mMainActivity
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View v = inflator.inflate(R.layout.actionbar_main_right_image, null);
+		
+		mMainActivity.getSupportActionBar().setCustomView(v);
+		
+		//setup the left bar button
 		ImageButton leftBarButton = (ImageButton) mMainActivity.getSupportActionBar().getCustomView().findViewById(R.id.leftBarButton);
 		leftBarButton.setBackgroundResource(R.drawable.ic_bar_item_back);
 		leftBarButton.setOnClickListener(new View.OnClickListener() {
@@ -194,6 +204,36 @@ public class JobDetailsFragment
 				
 			}
 		});
+		
+		//setup the right bar button
+		ImageButton rightBarButton = (ImageButton) mMainActivity.getSupportActionBar().getCustomView().findViewById(R.id.rightBarButton);
+		rightBarButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				emailJob();
+				
+			}
+		});
+		
+		//setup text view
+		TextView barTitle = (TextView) v.findViewById(R.id.barTitle);
+		barTitle.setText(MainActivity.FRAGMENT_JOB_DETAILS);
+		
+		
+		
+	}
+
+	private void emailJob() {
+		Intent i = new Intent(Intent.ACTION_SEND);
+		i.setType("message/rfc822");
+		i.putExtra(Intent.EXTRA_SUBJECT, "VTMBA Job - " + mJob.getTitle());
+		i.putExtra(Intent.EXTRA_TEXT   , mJob.toString());
+		try {
+		    startActivity(Intent.createChooser(i, "Send mail..."));
+		} catch (android.content.ActivityNotFoundException ex) {
+		    Toast.makeText(mMainActivity, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+		}
 		
 	}
 
