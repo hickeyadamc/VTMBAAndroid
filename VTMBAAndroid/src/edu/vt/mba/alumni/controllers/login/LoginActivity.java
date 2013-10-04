@@ -53,17 +53,17 @@ public class LoginActivity
         boolean success = false;
         success = db.login(user, pass);
 
-//        if(success == false) {
-//            Toast toast = Toast.makeText(getApplicationContext(),
-//                "Login Failed: Incorrect username or password.", Toast.LENGTH_SHORT);
-//            toast.show();
-//        }
-//        else
-//        {
+        if(success == false) {
+            Toast toast = Toast.makeText(getApplicationContext(),
+                "Login Failed: Incorrect username or password.", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        else
+        {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
-//        }
+        }
     }
 
 //    @Override

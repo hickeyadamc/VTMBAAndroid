@@ -80,7 +80,7 @@ public class Database
             loginSuccess = true;
         }
 
-        return true;
+        return loginSuccess;
     }
 
     /**

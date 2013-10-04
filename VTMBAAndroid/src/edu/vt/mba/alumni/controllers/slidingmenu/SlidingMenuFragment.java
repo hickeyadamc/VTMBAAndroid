@@ -69,7 +69,7 @@ public class SlidingMenuFragment extends Fragment {
 				}
 				
 				if (firstTimeStartup) {// first time  highlight first row
-					currentedSelectedView = lv.getChildAt(1);
+					currentedSelectedView = lv.getChildAt(0);
 			    }
 			    firstTimeStartup = false; 
 				// make the right highlight for the background color
@@ -104,7 +104,7 @@ public class SlidingMenuFragment extends Fragment {
 				convertView = LayoutInflater.from(getContext()).inflate(R.layout.sliding_menu_list_row, null);
 			}
 			
-			if (firstTimeStartup && position == 1) {
+			if (firstTimeStartup && position == 0) {
 				convertView.setBackgroundResource(R.color.menu_background_select_color);
 	        }
 			
