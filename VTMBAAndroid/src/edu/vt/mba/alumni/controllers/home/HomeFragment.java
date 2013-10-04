@@ -19,6 +19,7 @@ public class HomeFragment extends SherlockFragment {
 		// TODO Auto-generated method stub
 		
 		mMainActivity = (MainActivity) getActivity();
+		mMainActivity.setupActionBarButtonWithDefault();
 		mMainActivity.setActionBarTitleText(MainActivity.FRAGMENT_HOME);
 		return super.onCreateView(inflater, container, savedInstanceState);
 	}

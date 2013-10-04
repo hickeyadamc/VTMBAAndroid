@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:onClick="rightBarButtonClicked"
-        android:background="@drawable/ic_email_no_border"
+        android:background="@drawable/ic_email_dark_with_background"
         android:src="@drawable/button_default_selector" />
 
     <TextView

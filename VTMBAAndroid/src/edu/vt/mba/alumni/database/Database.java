@@ -2,11 +2,13 @@ package edu.vt.mba.alumni.database;
 
 import android.os.AsyncTask;
 import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
@@ -24,7 +26,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import edu.vt.mba.alumni.controllers.jobboard.Job;
+import edu.vt.mba.alumni.database.responseobjects.AlumniSearchSingleAlumInfo;
+import edu.vt.mba.alumni.database.responseobjects.AlumniSearchTotalResponseObject;
 
 public class Database
 {
@@ -86,9 +94,9 @@ public class Database
      * @param metroArea
      * @return ArrayList
      */
-    public ArrayList<Contact> search(String firstName, String lastName, String location, String state, String employer, String metroArea)
+    public List<AlumniSearchSingleAlumInfo> search(String firstName, String lastName, String location, String state, String employer, String metroArea)
     {
-        ArrayList<Contact> contacts = new ArrayList<Contact>();
+    	List<AlumniSearchSingleAlumInfo> contacts = new ArrayList<AlumniSearchSingleAlumInfo>();
         try {
             contacts = new SearchTask().execute(firstName, lastName, location, state, employer, metroArea).get();
         }
@@ -167,113 +175,110 @@ public class Database
      *  Handles searching for contacts in the database, getting the result,
      *  and parsing it into an ArrayList of Contact type
      */
-    private class SearchTask extends AsyncTask<String, Integer, ArrayList<Contact>> {
-        protected ArrayList<Contact> doInBackground(String... strings) {
-
-            JSONArray jArray;
-            String result = null;
-            InputStream is = null;
-            StringBuilder sb=null;
-            ArrayList<Contact> results = new ArrayList<Contact>();
-
+    private class SearchTask extends AsyncTask<String, Integer, List<AlumniSearchSingleAlumInfo>> {
+        protected List<AlumniSearchSingleAlumInfo> doInBackground(String... strings) {
+            List<AlumniSearchSingleAlumInfo> alumni = new ArrayList<AlumniSearchSingleAlumInfo>();
             try {
-            HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost("http://www.alumni.mba.vt.edu/MBA_Mobile_App/search.php");
-            ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-            nameValuePairs.add(new BasicNameValuePair("firstName", strings[0]));
-            nameValuePairs.add(new BasicNameValuePair("lastName", strings[1]));
-            nameValuePairs.add(new BasicNameValuePair("location", strings[2]));
-            nameValuePairs.add(new BasicNameValuePair("state", strings[3]));
-            nameValuePairs.add(new BasicNameValuePair("employer", strings[4]));
-            nameValuePairs.add(new BasicNameValuePair("metroArea", strings[5]));
-
-            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-            HttpResponse response = httpclient.execute(httppost);
-            HttpEntity entity = response.getEntity();
-            is = entity.getContent();
-            Log.d(TAG,"The response was: " + IOUtils.toString(is));
+	            HttpClient httpclient = new DefaultHttpClient();
+	            HttpPost httppost = new HttpPost("http://www.alumni.mba.vt.edu/MBA_Mobile_App/search.php");
+	            ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+	            nameValuePairs.add(new BasicNameValuePair("firstName", strings[0]));
+	            nameValuePairs.add(new BasicNameValuePair("lastName", strings[1]));
+	            nameValuePairs.add(new BasicNameValuePair("location", strings[2]));
+	            nameValuePairs.add(new BasicNameValuePair("state", strings[3]));
+	            nameValuePairs.add(new BasicNameValuePair("employer", strings[4]));
+	            nameValuePairs.add(new BasicNameValuePair("metroArea", strings[5]));
+	
+	            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+	            HttpResponse response = httpclient.execute(httppost);
+	            
+	            ObjectMapper mapper = new ObjectMapper();
+	            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+	            alumni = mapper.readValue(HttpResponseUtils.convertHttpResponseToString(response), new TypeReference<List<AlumniSearchSingleAlumInfo>>(){});
             }
             catch(Exception e){
-
-                System.out.println("Error in http connection "+e.toString());
+            	Log.e(TAG,"An error occured while searching for alumni or parsing the results.",e);
             }
-
-            try{
-                   BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
-                   sb = new StringBuilder();
-                   sb.append(reader.readLine() + "\n");
-                   String line="0";
-                   while ((line = reader.readLine()) != null) {
-                                  sb.append(line + "\n");
-                    }
-                    is.close();
-                    result=sb.toString();
-                    }
-            catch(Exception e){
-                          Log.e("log_tag", "Error converting result " + e.toString());
-                    }
-
-            try{
-                  jArray = new JSONArray(result);
-                  JSONObject json_data=null;
-                  for(int i=0;i<jArray.length();i++){
-                         json_data = jArray.getJSONObject(i);
-                         Contact person = new Contact();
-                         person.setName(json_data.getString("firstName") + " " + json_data.getString("lastName"));
-                         person.setEmail(json_data.getString("prefEmail"));
-                         if(person.getEmail().equals(""))
-                         {
-                             person.setEmail("Unavailable");
-                         }
-                         person.setLocation(json_data.getString("city") + ", " + json_data.getString("state"));
-                         if(person.getLocation().equals(", "))
-                         {
-                             person.setLocation("Unavailable");
-                         }
-                         else if(person.getLocation().equals(", " + json_data.getString("state")))
-                         {
-                             person.setLocation(json_data.getString("state"));
-                         }
-                         person.setEmployer(json_data.getString("employerName"));
-                         if(person.getEmployer().equals(""))
-                         {
-                             person.setEmployer("Unavailable");
-                         }
-                         person.setMetroArea(json_data.getString("employerBranch"));
-                         if(person.getMetroArea().equals(""))
-                         {
-                             person.setMetroArea("Unavailable");
-                         }
-                         person.setLinkedIn(json_data.getString("linkedin"));
-                         if(person.getLinkedIn().equals(""))
-                         {
-                             person.setLinkedIn("Unavailable");
-                         }
-                         person.setGradYear(json_data.getString("undergradYear"));
-                         if(person.getGradYear().equals("") || person.getGradYear().equals("N/A"))
-                         {
-                             person.setGradYear("Unavailable");
-                         }
-                         person.setWorkPhone(json_data.getString("workPhone"));
-                         if(person.getWorkPhone().equals(""))
-                         {
-                             person.setWorkPhone("Unavailable");
-                         }
-                         person.setJobTitle(json_data.getString("position"));
-                         if(person.getJobTitle().equals(""))
-                         {
-                             person.setJobTitle("Unavailable");
-                         }
-
-                         results.add(person);
-                     }
-                  }
-                  catch(JSONException e1){
-                      e1.printStackTrace();
-                  } catch (ParseException e1) {
-                        e1.printStackTrace();
-                }
-            return results;
+            
+            return alumni;
+            
+            
+//            try{
+//                   BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
+//                   sb = new StringBuilder();
+//                   sb.append(reader.readLine() + "\n");
+//                   String line="0";
+//                   while ((line = reader.readLine()) != null) {
+//                                  sb.append(line + "\n");
+//                    }
+//                    is.close();
+//                    result=sb.toString();
+//                    }
+//            catch(Exception e){
+//                          Log.e("log_tag", "Error converting result " + e.toString());
+//                    }
+//
+//            try{
+//                  jArray = new JSONArray(result);
+//                  JSONObject json_data=null;
+//                  for(int i=0;i<jArray.length();i++){
+//                         json_data = jArray.getJSONObject(i);
+//                         Contact person = new Contact();
+//                         person.setName(json_data.getString("firstName") + " " + json_data.getString("lastName"));
+//                         person.setEmail(json_data.getString("prefEmail"));
+//                         if(person.getEmail().equals(""))
+//                         {
+//                             person.setEmail("Unavailable");
+//                         }
+//                         person.setLocation(json_data.getString("city") + ", " + json_data.getString("state"));
+//                         if(person.getLocation().equals(", "))
+//                         {
+//                             person.setLocation("Unavailable");
+//                         }
+//                         else if(person.getLocation().equals(", " + json_data.getString("state")))
+//                         {
+//                             person.setLocation(json_data.getString("state"));
+//                         }
+//                         person.setEmployer(json_data.getString("employerName"));
+//                         if(person.getEmployer().equals(""))
+//                         {
+//                             person.setEmployer("Unavailable");
+//                         }
+//                         person.setMetroArea(json_data.getString("employerBranch"));
+//                         if(person.getMetroArea().equals(""))
+//                         {
+//                             person.setMetroArea("Unavailable");
+//                         }
+//                         person.setLinkedIn(json_data.getString("linkedin"));
+//                         if(person.getLinkedIn().equals(""))
+//                         {
+//                             person.setLinkedIn("Unavailable");
+//                         }
+//                         person.setGradYear(json_data.getString("undergradYear"));
+//                         if(person.getGradYear().equals("") || person.getGradYear().equals("N/A"))
+//                         {
+//                             person.setGradYear("Unavailable");
+//                         }
+//                         person.setWorkPhone(json_data.getString("workPhone"));
+//                         if(person.getWorkPhone().equals(""))
+//                         {
+//                             person.setWorkPhone("Unavailable");
+//                         }
+//                         person.setJobTitle(json_data.getString("position"));
+//                         if(person.getJobTitle().equals(""))
+//                         {
+//                             person.setJobTitle("Unavailable");
+//                         }
+//
+//                         results.add(person);
+//                     }
+//                  }
+//                  catch(JSONException e1){
+//                      e1.printStackTrace();
+//                  } catch (ParseException e1) {
+//                        e1.printStackTrace();
+//                }
+//            return results;
         }
 
         protected void onProgressUpdate(Integer... progress) {

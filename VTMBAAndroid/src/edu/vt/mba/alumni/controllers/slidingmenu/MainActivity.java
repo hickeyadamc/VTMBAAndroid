@@ -15,6 +15,7 @@ import edu.vt.mba.alumni.controllers.information.InfoFragment;
 import edu.vt.mba.alumni.controllers.jobboard.JobDetailsFragment;
 import edu.vt.mba.alumni.controllers.jobboard.JobResultsListFragment;
 import edu.vt.mba.alumni.controllers.jobboard.JobSearchFragment;
+import edu.vt.mba.alumni.controllers.searchalumni.AlumniDetailsFragment;
 import edu.vt.mba.alumni.controllers.searchalumni.AlumniResultsListFragment;
 import edu.vt.mba.alumni.controllers.searchalumni.AlumniSearchFragment;
 import android.os.Bundle;
@@ -44,6 +45,7 @@ public class MainActivity extends SlidingFragmentActivity {
 	public static final String FRAGMENT_INFORMATION = "Information";
 	public static final String FRAGMENT_JOB_RESULTS = "Job Results";
 	public static final String FRAGMENT_SEARCH_ALUMNI_RESULTS = "Alumni Results";
+	public static final String FRAGMENT_SEARCH_ALUMNI_DETAILS = "Alumni Details";
 	public static final String FRAGMENT_JOB_DETAILS = "Job Details";
 	public static final String FRAGMENT_ABOUT = "About";
 	
@@ -99,6 +101,8 @@ public class MainActivity extends SlidingFragmentActivity {
 		mMenuControlledFragments.put(FRAGMENT_ABOUT, new InfoFragment());
 		
 		mMenuControlledFragments.put(FRAGMENT_HOME, new HomeFragment());
+		
+		mMenuControlledFragments.put(FRAGMENT_SEARCH_ALUMNI_DETAILS, new AlumniDetailsFragment());
 
 		switchContent(FRAGMENT_JOB_SEARCH);
 		
@@ -150,8 +154,13 @@ public class MainActivity extends SlidingFragmentActivity {
 		
 	}
 	
-    public void setupLeftActionBarButtonWithDefault() {
-//		mBarTitle.setText(mCurrentTitle);
+    public void setupActionBarButtonWithDefault() {
+    	
+    	LayoutInflater inflator = (LayoutInflater) this
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View v = inflator.inflate(R.layout.actionbar_main, null);
+		
+		this.getSupportActionBar().setCustomView(v);
 		
 		ImageButton leftBarButton = (ImageButton)getSupportActionBar().getCustomView().findViewById(R.id.leftBarButton);
 		leftBarButton.setBackgroundResource(R.drawable.ic_bar_item_sidebar);

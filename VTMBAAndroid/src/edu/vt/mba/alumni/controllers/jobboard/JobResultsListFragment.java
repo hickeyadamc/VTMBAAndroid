@@ -29,6 +29,7 @@ import com.slidingmenu.lib.app.SlidingFragmentActivity;
 import edu.vt.mba.alumni.controllers.slidingmenu.MainActivity;
 import edu.vt.mba.alumni.database.Database;
 import edu.vt.mba.alumni.database.Database.SearchJobsTaskCallback;
+import edu.vt.mba.alumni.utils.Utils;
 import edu.vt.mba.alumni.R;
 import android.os.Bundle;
 import android.app.Activity;
@@ -54,8 +55,8 @@ public class JobResultsListFragment
     {
         super.onCreate(savedInstanceState);
         mMainActivity = (MainActivity) getActivity();
-        mRootView = inflater.inflate(R.layout.fragment_job_results,container,false);
-        mJobsListView = (ListView) mRootView.findViewById(R.id.listViewJobs);
+        mRootView = inflater.inflate(R.layout.fragment_generic_results,container,false);
+        mJobsListView = (ListView) mRootView.findViewById(R.id.listViewItems);
         
         mJobsListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -72,7 +73,7 @@ public class JobResultsListFragment
         //If they're equal, use the old job list and do no searching
         //if they're not equal, search the database
         ArrayList<String> currentSearchCriteria = getArguments().getStringArrayList(EXTRA_SEARCH_ARRAY);
-        if(listsAreEqualAndNotNull(mPreviousSearch,currentSearchCriteria)) {
+        if(Utils.listsAreEqualAndNotNull(mPreviousSearch,currentSearchCriteria)) {
         	updateJobsAndLoadUi(mJobs);
         } else {
         	mPreviousSearch = currentSearchCriteria;
@@ -96,24 +97,7 @@ public class JobResultsListFragment
     }
 
 
-    private boolean listsAreEqualAndNotNull(List<String> firstList,
-			List<String> secondList) {
-		if((firstList == null)||(secondList == null)) {
-			return false;
-		}
-		if(firstList.size() != secondList.size()) {
-			return false;
-		}
-		for(int i=0;i<firstList.size();++i) {
-			if( !firstList.get(i).equals( secondList.get(i)) ){
-				return false;
-			}
-		}
-		
-		
-		
-		return true;
-	}
+
 
 
 	private void setupActionBar() {

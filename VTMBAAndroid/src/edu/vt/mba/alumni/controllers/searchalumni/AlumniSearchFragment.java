@@ -73,7 +73,7 @@ public class AlumniSearchFragment extends SherlockFragment implements
 		spinner.setAdapter(adapter);
 		spinner.setOnItemSelectedListener(this);
 
-		mMainActivity.setupLeftActionBarButtonWithDefault();
+		mMainActivity.setupActionBarButtonWithDefault();
 		mMainActivity.setActionBarTitleText(MainActivity.FRAGMENT_SEARCH_ALUMNI);
 		return mRootView;
 

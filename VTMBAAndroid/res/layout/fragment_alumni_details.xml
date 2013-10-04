@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/default_background_color"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/vtmba_logo_height"
+                android:paddingLeft="@dimen/vtmba_logo_margin_left"
+                android:src="@drawable/mba_logo" /> 
+
+            <TextView
+                android:id="@+id/textViewTitleName"
+                style="?android:listSeparatorTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NAME" />
+
+            <TextView
+                android:id="@+id/textViewName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/interior_padding_left"
+                android:layout_marginRight="@dimen/interior_padding_right" />
+
+            <TextView
+                android:id="@+id/textViewTitleEmail"
+                style="?android:listSeparatorTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dividor_padding_top"
+                android:text="EMAIL" />
+
+            <TextView
+                android:id="@+id/textViewEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/interior_padding_left"
+                android:layout_marginRight="@dimen/interior_padding_right" />
+
+            <TextView
+                android:id="@+id/textViewTitleLocation"
+                style="?android:listSeparatorTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dividor_padding_top"
+                android:text="LOCATION" />
+
+            <TextView
+                android:id="@+id/textViewLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/interior_padding_left"
+                android:layout_marginRight="@dimen/interior_padding_right" />
+
+            <TextView
+                android:id="@+id/textViewTitleEmployer"
+                style="?android:listSeparatorTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dividor_padding_top"
+                android:text="EMPLOYER" />
+
+            <TextView
+                android:id="@+id/textViewEmployer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/interior_padding_left"
+                android:layout_marginRight="@dimen/interior_padding_right" />
+
+            <TextView
+                android:id="@+id/textViewTitleLinkedIn"
+                style="?android:listSeparatorTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dividor_padding_top"
+                android:text="LINKEDIN" />
+
+            <TextView
+                android:id="@+id/textViewLinkedIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/interior_padding_left"
+                android:layout_marginRight="@dimen/interior_padding_right" />
+            
+            <TextView
+                android:id="@+id/textViewTitlePosition"
+                style="?android:listSeparatorTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dividor_padding_top"
+                android:text="POSITION" />
+
+            <TextView
+                android:id="@+id/textViewPosition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/interior_padding_left"
+                android:layout_marginRight="@dimen/interior_padding_right" />
+
+            <TextView
+                android:id="@+id/textViewTitleWorkPhone"
+                style="?android:listSeparatorTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dividor_padding_top"
+                android:text="WORK PHONE" />
+
+            <TextView
+                android:id="@+id/textViewWorkPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/interior_padding_left"
+                android:layout_marginRight="@dimen/interior_padding_right" />
+            <TextView
+                android:id="@+id/textViewTitleGraduationYear"
+                style="?android:listSeparatorTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dividor_padding_top"
+                android:text="GRADUATION YEAR" />
+
+            <TextView
+                android:id="@+id/textViewGraduationYear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/interior_padding_left"
+                android:layout_marginRight="@dimen/interior_padding_right" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

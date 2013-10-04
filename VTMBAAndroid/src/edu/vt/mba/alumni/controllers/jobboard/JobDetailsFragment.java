@@ -3,6 +3,7 @@ package edu.vt.mba.alumni.controllers.jobboard;
 import android.content.Context;
 import android.content.Intent;
 import android.text.method.ScrollingMovementMethod;
+import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +64,10 @@ public class JobDetailsFragment
 
         final TextView description = (TextView) mRootView.findViewById(R.id.jobDescription);
         description.setText(mJob.getDescription());
+        
+        Linkify.addLinks(description, Linkify.EMAIL_ADDRESSES);
+        Linkify.addLinks(description, Linkify.WEB_URLS);
+        Linkify.addLinks(description, Linkify.PHONE_NUMBERS);
 
         final TextView category = (TextView) mRootView.findViewById(R.id.jobCategory);
         category.setText(createCategoryString(mJob.getCategory()));

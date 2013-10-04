@@ -1,6 +1,7 @@
 package edu.vt.mba.alumni.controllers.searchalumni;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.actionbarsherlock.app.SherlockFragment;
 
@@ -22,21 +23,29 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import edu.vt.mba.alumni.R;
+import edu.vt.mba.alumni.controllers.jobboard.Job;
+import edu.vt.mba.alumni.controllers.jobboard.JobResultsAdapter;
 import edu.vt.mba.alumni.controllers.slidingmenu.MainActivity;
 import edu.vt.mba.alumni.database.Contact;
 import edu.vt.mba.alumni.database.Database;
+import edu.vt.mba.alumni.database.Database.SearchJobsTaskCallback;
+import edu.vt.mba.alumni.database.responseobjects.AlumniSearchSingleAlumInfo;
+import edu.vt.mba.alumni.utils.Utils;
 
 public class AlumniResultsListFragment
     extends SherlockFragment
 {
-    private ArrayList<Contact> contacts;
-    private ArrayList<String> searchArray;
+    private List<AlumniSearchSingleAlumInfo> mAlumni;
     
     public static final String EXTRA_SEARCH_PARAMETERS = "searchArray";
 	private static final String TAG = AlumniResultsListFragment.class.getName();
     
     private MainActivity mMainActivity;
     private View mRootView;
+    
+    private List<String> mPreviousSearch;
+    
+    private ListView mAlumniListView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,76 +53,77 @@ public class AlumniResultsListFragment
     {
         super.onCreate(savedInstanceState);
 //        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        mRootView = inflater.inflate(R.layout.fragment_results_list,container,false);
+        mRootView = inflater.inflate(R.layout.fragment_generic_results,container,false);
         mMainActivity = (MainActivity) getActivity();
-        contacts = new ArrayList<Contact>();
-        searchArray = new ArrayList<String>();
+    
+        mAlumniListView = (ListView) mRootView.findViewById(R.id.listViewItems);
 
-        //Fetches search parameters
-//        Intent intent = getIntent();
-        searchArray = getArguments().getStringArrayList(EXTRA_SEARCH_PARAMETERS);
-
-        //Sends parameters search method to be searched in the online database.
-        Log.d(TAG,"onCreateView");
-        Database db = new Database();
-        contacts = db.search(searchArray.get(0), searchArray.get(1), searchArray.get(2), searchArray.get(3), searchArray.get(4), searchArray.get(5));
-
-        //Populates listView
-        final ListView lv1 = (ListView) mRootView.findViewById(R.id.listViewResults);
-        if(contacts.size() < 1)
-        {
-            Toast.makeText(mMainActivity, "No Results Were Found" ,Toast.LENGTH_LONG).show();
-        }
-        else
-        {
-            lv1.setAdapter(new ContactResultsAdapter(mMainActivity, contacts));
-        }
-
-        lv1.setOnItemClickListener(new OnItemClickListener() {
+        mAlumniListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-             Object o = lv1.getItemAtPosition(position);
-             Contact fullObject = (Contact)o;
+             Object o = mAlumniListView.getItemAtPosition(position);
+             AlumniSearchSingleAlumInfo fullObject = (AlumniSearchSingleAlumInfo)o;
 
              openContact(fullObject);
             }
            });
         
+        ArrayList<String> currentSearchCriteria = getArguments().getStringArrayList(EXTRA_SEARCH_PARAMETERS);
+        if(Utils.listsAreEqualAndNotNull(mPreviousSearch,currentSearchCriteria)) {
+        	updateAlumsAndLoadUi(mAlumni);
+        } else {
+        	mPreviousSearch = currentSearchCriteria;
+        	searchForAlumni(currentSearchCriteria);
+        }
+        
         setupActionBar();
         return mRootView;
     }
 
-    /**
-     * Method to go back to contact search menu
-     */
-    public void goBack()
-    {
-        Intent intent = new Intent(mMainActivity, AlumniSearchFragment.class);
-        intent.putExtra("checkVal", 2);
-        intent.putExtra("searchArray", searchArray);
-        startActivity(intent);
-//        finish();
-    }
+    private void updateAlumsAndLoadUi(List<AlumniSearchSingleAlumInfo> alumni) {
+		mAlumni = alumni;
+	      if(mAlumni.size() < 1)
+	      {
+	          Toast.makeText(mMainActivity, "No Results Were Found" ,Toast.LENGTH_LONG).show();
+	      }
+	      else
+	      {
+	      	if(mAlumni == null) {
+	      		Log.d(TAG ,"list view was null");
+	      	} else {
+	      		mAlumniListView.setAdapter(new AlumniResultsAdapter(mMainActivity, mAlumni));
+	      	}
+	      }
+		
+	}
+
+	private void searchForAlumni(ArrayList<String> currentSearchCriteria) {
+        Database db = new Database();
+        List<AlumniSearchSingleAlumInfo> alumni = db.search(currentSearchCriteria.get(0), currentSearchCriteria.get(1), currentSearchCriteria.get(2), currentSearchCriteria.get(3), currentSearchCriteria.get(4), currentSearchCriteria.get(5));
+        updateAlumsAndLoadUi(alumni);
+		
+	}
+
+
 
     /**
      * Sends information from selected contact to the ContactPage class to
      * be displayed.
      * @param contact
      */
-    public void openContact(Contact contact)
+    public void openContact(AlumniSearchSingleAlumInfo contact)
     {
-        Intent intent = new Intent(mMainActivity, ContactPage.class);
-        intent.putExtra("name",contact.getName());
-        intent.putExtra("email",contact.getEmail());
-        intent.putExtra("location",contact.getLocation());
-        intent.putExtra("linkedIn",contact.getLinkedIn());
-        intent.putExtra("employer", contact.getEmployer());
-        intent.putExtra("metroArea", contact.getMetroArea());
-        intent.putExtra("gradYear",contact.getGradYear());
-        intent.putExtra("jobTitle", contact.getJobTitle());
-        intent.putExtra("workPhone", contact.getWorkPhone());
-        intent.putExtra("searchArray", searchArray);
-        startActivity(intent);
+    	Bundle alumDetails = new Bundle();
+    	alumDetails.putString("name",contact.getFirstName()+" " +contact.getLastName());
+    	alumDetails.putString("email",contact.getPrefEmail());
+    	alumDetails.putString("location",contact.getCity() + " " +contact.getState());
+    	alumDetails.putString("linkedIn",contact.getLinkedin());
+    	alumDetails.putString("employer", contact.getEmployerName());
+    	alumDetails.putString("metroArea", contact.getMetroArea());
+    	alumDetails.putString("gradYear",contact.getUndergraduateYear());
+    	alumDetails.putString("jobTitle", contact.getPosition());
+    	alumDetails.putString("workPhone", contact.getWorkPhone());
+        mMainActivity.switchContent(MainActivity.FRAGMENT_SEARCH_ALUMNI_DETAILS, alumDetails);
     }
 
 	private void setupActionBar() {
