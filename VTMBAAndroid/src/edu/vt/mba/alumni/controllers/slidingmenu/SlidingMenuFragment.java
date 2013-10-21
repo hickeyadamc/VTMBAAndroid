@@ -2,6 +2,7 @@ package edu.vt.mba.alumni.controllers.slidingmenu;
 
 
 import edu.vt.mba.alumni.R;
+import edu.vt.mba.alumni.controllers.login.LoginActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -44,6 +45,7 @@ public class SlidingMenuFragment extends Fragment {
 				R.drawable.ic_search_alumni));
 		adapter.add(new MainMenuItem(MainActivity.FRAGMENT_ABOUT, 
 				R.drawable.ic_menu_technology));	
+		adapter.add(new MainMenuItem(MainActivity.FRAGMENT_LOG_OUT, R.drawable.ic_sign_out));
 		lv.setAdapter(adapter);
 		
 		// config menu item click control
@@ -63,9 +65,9 @@ public class SlidingMenuFragment extends Fragment {
 				case 2:
 					mHomeActivity.switchContent(MainActivity.FRAGMENT_ABOUT);
 					break;
-//				case 3:
-//					mHomeActivity.switchContent(HomeActivity.FRAGMENT_CREATE_REPORT);
-//					break;
+				case 3:
+					LoginActivity.signOut(mHomeActivity);
+					break;
 				}
 				
 				if (firstTimeStartup) {// first time  highlight first row

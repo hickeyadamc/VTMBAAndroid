@@ -15,13 +15,17 @@ import edu.vt.mba.alumni.controllers.information.InfoFragment;
 import edu.vt.mba.alumni.controllers.jobboard.JobDetailsFragment;
 import edu.vt.mba.alumni.controllers.jobboard.JobResultsListFragment;
 import edu.vt.mba.alumni.controllers.jobboard.JobSearchFragment;
+import edu.vt.mba.alumni.controllers.login.LoginActivity;
 import edu.vt.mba.alumni.controllers.searchalumni.AlumniDetailsFragment;
 import edu.vt.mba.alumni.controllers.searchalumni.AlumniResultsListFragment;
 import edu.vt.mba.alumni.controllers.searchalumni.AlumniSearchFragment;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -48,6 +52,7 @@ public class MainActivity extends SlidingFragmentActivity {
 	public static final String FRAGMENT_SEARCH_ALUMNI_DETAILS = "Alumni Details";
 	public static final String FRAGMENT_JOB_DETAILS = "Job Details";
 	public static final String FRAGMENT_ABOUT = "About";
+	public static final String FRAGMENT_LOG_OUT = "Sign Out";
 	
 	public static final String TAG = MainActivity.class.getName();
 	public static final String SHARED_PREFS_NAME = "edu.vt.mba.alumni";
@@ -180,6 +185,7 @@ public class MainActivity extends SlidingFragmentActivity {
 		barTitle.setText(titleText);
 		
 	}
+
 	
 	
 
