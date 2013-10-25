@@ -47,7 +47,7 @@ public class AlumniSearchFragment extends SherlockFragment implements
 		mRootView = inflater.inflate(R.layout.fragment_alumni_search,
 				container, false);
 		state = new String();
-		state = "ANY";
+		state = "AL";
 		searchFirstName = (EditText) mRootView.findViewById(R.id.searchName);
 		searchLastName = (EditText) mRootView.findViewById(R.id.searchLastName);
 		searchLocation = (EditText) mRootView.findViewById(R.id.searchLocation);

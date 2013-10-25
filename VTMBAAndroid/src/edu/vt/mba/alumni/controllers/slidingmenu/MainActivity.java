@@ -23,7 +23,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
@@ -184,6 +188,31 @@ public class MainActivity extends SlidingFragmentActivity {
 		TextView barTitle = (TextView)getSupportActionBar().getCustomView().findViewById(R.id.barTitle);
 		barTitle.setText(titleText);
 		
+	}
+	@Override
+	public void onBackPressed() {
+		
+		Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage("Are you sure you want to exit the app?");
+		builder.setCancelable(true);
+		builder.setPositiveButton("OK", new OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				MainActivity.super.onBackPressed();
+				
+			}
+		});
+		builder.setNegativeButton("Cancel", new OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		AlertDialog dialog = builder.create();
+		dialog.show();
 	}
 
 	

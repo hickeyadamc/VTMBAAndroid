@@ -58,7 +58,7 @@ public class Database
 
         String result = new String();
         result = "Failed";
-        if(username !=null && password != null && !username.isEmpty() && !password.isEmpty())
+        if(username !=null && password != null && (password.length() > 0) && (password.length() > 0) )
         {
 
             try {
@@ -194,7 +194,12 @@ public class Database
 	            
 	            ObjectMapper mapper = new ObjectMapper();
 	            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
-	            alumni = mapper.readValue(HttpResponseUtils.convertHttpResponseToString(response), new TypeReference<List<AlumniSearchSingleAlumInfo>>(){});
+	            String responseString = HttpResponseUtils.convertHttpResponseToString(response);
+	            Log.d(TAG,responseString);
+	            List<AlumniSearchSingleAlumInfo> results = mapper.readValue(responseString, new TypeReference<List<AlumniSearchSingleAlumInfo>>(){});
+	            if(results != null) {
+	            	alumni = results;
+	            }
             }
             catch(Exception e){
             	Log.e(TAG,"An error occured while searching for alumni or parsing the results.",e);

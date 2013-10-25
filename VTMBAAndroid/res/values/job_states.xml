@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <string-array name="states_array">
+    <string-array name="job_states_array">
+        <item>ANY</item>
         <item>AL</item>
         <item>AK</item>
         <item>AZ</item>

@@ -44,7 +44,7 @@ public class LoginActivity
         pass = new String("");
         
         String oldUsername = PreferenceManager.getDefaultSharedPreferences(this).getString(KEY_USERNAME, "");
-        if(!oldUsername.isEmpty()) {
+        if(oldUsername.length() > 0) {
         	userName.setText(oldUsername);
         }
         

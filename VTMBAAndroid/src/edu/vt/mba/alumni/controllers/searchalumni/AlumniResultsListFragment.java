@@ -84,7 +84,7 @@ public class AlumniResultsListFragment
 		mAlumni = alumni;
 	      if(mAlumni.size() < 1)
 	      {
-	          Toast.makeText(mMainActivity, "No Results Were Found" ,Toast.LENGTH_LONG).show();
+	          Toast.makeText(mMainActivity, "No Results Were Found - Try choosing another state" ,Toast.LENGTH_LONG).show();
 	      }
 	      else
 	      {
