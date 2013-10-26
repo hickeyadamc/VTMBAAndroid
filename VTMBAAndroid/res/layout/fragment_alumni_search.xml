@@ -70,6 +70,7 @@
             <TextView
                 android:id="@+id/textView1"
                 style="?android:listSeparatorTextViewStyle"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dividor_padding_bottom"
@@ -78,6 +79,7 @@
 
             <EditText
                 android:id="@+id/searchMetroArea"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/interior_padding_left"
@@ -86,6 +88,7 @@
 
             <TextView
                 android:id="@+id/textView1"
+                android:visibility="gone"
                 style="?android:listSeparatorTextViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -95,6 +98,7 @@
 
             <EditText
                 android:id="@+id/searchEmployer"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/interior_padding_left"

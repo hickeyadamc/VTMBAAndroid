@@ -91,6 +91,8 @@ public class MainActivity extends SlidingFragmentActivity {
 		setupSlidingMenu();
 		initMenuControlledFragments();
 		
+//		switchContent(FRAGMENT_ABOUT);
+		
 		
 	}
 
@@ -113,7 +115,7 @@ public class MainActivity extends SlidingFragmentActivity {
 		
 		mMenuControlledFragments.put(FRAGMENT_SEARCH_ALUMNI_DETAILS, new AlumniDetailsFragment());
 
-		switchContent(FRAGMENT_JOB_SEARCH);
+		switchContent(FRAGMENT_ABOUT);
 		
 	}
 

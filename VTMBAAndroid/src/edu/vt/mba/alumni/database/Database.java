@@ -190,12 +190,13 @@ public class Database
 	            nameValuePairs.add(new BasicNameValuePair("metroArea", strings[5]));
 	
 	            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+	            Log.d(TAG, HttpResponseUtils.convertHttpPostToString(httppost));
+	            
 	            HttpResponse response = httpclient.execute(httppost);
 	            
 	            ObjectMapper mapper = new ObjectMapper();
 	            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 	            String responseString = HttpResponseUtils.convertHttpResponseToString(response);
-	            Log.d(TAG,responseString);
 	            List<AlumniSearchSingleAlumInfo> results = mapper.readValue(responseString, new TypeReference<List<AlumniSearchSingleAlumInfo>>(){});
 	            if(results != null) {
 	            	alumni = results;

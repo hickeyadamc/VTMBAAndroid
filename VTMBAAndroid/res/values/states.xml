@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <string-array name="states_array">
+    <string-array name="alumni_states_array">
+        <item>VA</item>
         <item>AL</item>
         <item>AK</item>
         <item>AZ</item>
@@ -46,8 +47,8 @@
         <item>TN</item>
         <item>TX</item>
         <item>UT</item>
-        <item>VT</item>
         <item>VA</item>
+        <item>VT</item>
         <item>WA</item>
         <item>WV</item>
         <item>WI</item>
