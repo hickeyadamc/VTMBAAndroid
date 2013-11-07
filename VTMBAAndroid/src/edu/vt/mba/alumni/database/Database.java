@@ -197,10 +197,11 @@ public class Database
 	            ObjectMapper mapper = new ObjectMapper();
 	            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 	            String responseString = HttpResponseUtils.convertHttpResponseToString(response);
-	            List<AlumniSearchSingleAlumInfo> results = mapper.readValue(responseString, new TypeReference<List<AlumniSearchSingleAlumInfo>>(){});
-	            if(results != null) {
-	            	alumni = results;
-	            }
+	            Log.d(TAG,"The response string is: " + responseString);
+//	            List<AlumniSearchSingleAlumInfo> results = mapper.readValue(responseString, new TypeReference<List<AlumniSearchSingleAlumInfo>>(){});
+//	            if(results != null) {
+//	            	alumni = results;
+//	            }
             }
             catch(Exception e){
             	Log.e(TAG,"An error occured while searching for alumni or parsing the results.",e);
@@ -328,7 +329,7 @@ public class Database
             nameValuePairs.add(new BasicNameValuePair("company", strings[3]));
 
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-//            Log.d(TAG,httppost.getEntity().getContent().toString())
+            Log.d(TAG,httppost.getEntity().getContent().toString());
             
             String stringEntity = IOUtils.toString(httppost.getEntity().getContent());
             Log.d(TAG,stringEntity);

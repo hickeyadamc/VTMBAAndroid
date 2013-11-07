@@ -353,6 +353,14 @@ public class JobSearchFragment
         AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
         builder.setTitle("Select Job Category");
         builder.setMultiChoiceItems(position, checkedCategories, categoryDialogListener);
+        builder.setPositiveButton("OK", new AlertDialog.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 
         AlertDialog dialog = builder.create();
         dialog.show();

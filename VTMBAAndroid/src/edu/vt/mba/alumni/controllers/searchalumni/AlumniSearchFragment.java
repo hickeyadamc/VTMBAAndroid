@@ -47,7 +47,7 @@ public class AlumniSearchFragment extends SherlockFragment implements
 		mRootView = inflater.inflate(R.layout.fragment_alumni_search,
 				container, false);
 		state = new String();
-		state = "VA";
+		state = "ANY";
 		searchFirstName = (EditText) mRootView.findViewById(R.id.searchName);
 		searchLastName = (EditText) mRootView.findViewById(R.id.searchLastName);
 		searchLocation = (EditText) mRootView.findViewById(R.id.searchLocation);
@@ -67,7 +67,7 @@ public class AlumniSearchFragment extends SherlockFragment implements
 
 		Spinner spinner = (Spinner) mRootView.findViewById(R.id.spinner);
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-				mActivity, R.array.alumni_states_array,
+				mActivity, R.array.job_states_array,
 				android.R.layout.simple_spinner_item);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner.setAdapter(adapter);

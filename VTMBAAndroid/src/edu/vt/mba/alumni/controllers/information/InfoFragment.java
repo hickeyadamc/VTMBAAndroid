@@ -36,10 +36,9 @@ public class InfoFragment
         final TextView info = (TextView) mRootView.findViewById(R.id.infoText);
 
         info.setText("Welcome to the VT MBA Alumni Android Application. \n \n" +
-        "VT MBA alumni must 'opt in' through the alumni database (www.alumni.mba.vt.edu) " +
-        "to use this app and appear in search results. \n \n" +
-                "To post jobs to the Job Board, contact Gina French at gfrench@vt.edu. \n" +
-                "Job posting attachments are located in the alumni database (www.alumni.mba.vt.edu).");
+        "Search the alumni database for other Virginia Tech MBA alumni who have opted in to share their information via the alumni database.\n\n" +
+        "Search current job positions hosted on the VTMBA job board (www.alumni.mba.vt.edu). Job posting attachments are located in the alumni database, not the app. \n \n" +
+        "To post jobs to the Job Board, contact mba@vt.edu \n");
 
         Linkify link = new Linkify();
         link.addLinks(info, Linkify.ALL);
