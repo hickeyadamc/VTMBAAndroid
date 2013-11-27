@@ -188,7 +188,7 @@ public class Database
 	            nameValuePairs.add(new BasicNameValuePair("state", strings[3]));
 	            nameValuePairs.add(new BasicNameValuePair("employer", strings[4]));
 	            nameValuePairs.add(new BasicNameValuePair("metroArea", strings[5]));
-	
+	            nameValuePairs.add(new BasicNameValuePair("metroArea", strings[5]));
 	            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 	            Log.d(TAG, HttpResponseUtils.convertHttpPostToString(httppost));
 	            
@@ -198,10 +198,10 @@ public class Database
 	            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 	            String responseString = HttpResponseUtils.convertHttpResponseToString(response);
 	            Log.d(TAG,"The response string is: " + responseString);
-//	            List<AlumniSearchSingleAlumInfo> results = mapper.readValue(responseString, new TypeReference<List<AlumniSearchSingleAlumInfo>>(){});
-//	            if(results != null) {
-//	            	alumni = results;
-//	            }
+	            List<AlumniSearchSingleAlumInfo> results = mapper.readValue(responseString, new TypeReference<List<AlumniSearchSingleAlumInfo>>(){});
+	            if(results != null) {
+	            	alumni = results;
+	            }
             }
             catch(Exception e){
             	Log.e(TAG,"An error occured while searching for alumni or parsing the results.",e);

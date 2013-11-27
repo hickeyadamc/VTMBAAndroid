@@ -21,11 +21,11 @@
         android:layout_height="@dimen/login_edit_text_height"
         android:layout_marginLeft="@dimen/interior_padding_left"
         android:layout_marginRight="@dimen/interior_padding_right"
-        android:background="@drawable/login_edit_text_background"
         android:layout_marginTop="@dimen/login_screen_spacing"
-        android:paddingLeft="20dp"
+        android:background="@drawable/login_edit_text_background"
         android:ems="10"
-        android:hint="Username" >
+        android:hint="Username"
+        android:paddingLeft="20dp" >
 
         <requestFocus />
     </EditText>
@@ -36,12 +36,12 @@
         android:layout_height="@dimen/login_edit_text_height"
         android:layout_marginLeft="@dimen/interior_padding_left"
         android:layout_marginRight="@dimen/interior_padding_right"
-        android:background="@drawable/login_edit_text_background"
         android:layout_marginTop="@dimen/login_screen_spacing"
-        android:paddingLeft="20dp"
+        android:background="@drawable/login_edit_text_background"
         android:ems="10"
         android:hint="Password"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:paddingLeft="20dp" />
 
     <Button
         android:id="@+id/loginButton"
@@ -49,8 +49,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/interior_padding_left"
         android:layout_marginRight="@dimen/interior_padding_right"
-        android:background="@drawable/search_button"
         android:layout_marginTop="@dimen/login_screen_spacing"
+        android:background="@drawable/search_button"
         android:shadowColor="#696969"
         android:shadowDx="2"
         android:shadowDy="2"
@@ -58,5 +58,15 @@
         android:text="LOGIN"
         android:textColor="#FFFFFF"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dividor_padding_top"
+        android:layout_marginLeft="@dimen/interior_padding_left"
+        android:layout_marginRight="@dimen/interior_padding_right"
+        android:text="VT MBA Alumni must &apos;opt in&apos; through the alumni database (www.alumni.mba.vt.edu)"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </LinearLayout>
